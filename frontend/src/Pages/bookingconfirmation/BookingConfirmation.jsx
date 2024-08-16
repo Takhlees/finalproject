@@ -1,0 +1,36 @@
+import React from 'react';
+import { useLocation } from 'react-router-dom';
+import './BookingConfirmation.css';
+
+const BookingConfirmation = () => {
+  const location = useLocation();
+  const bookingDetails = location.state || {};
+
+  const handlePrint = () => {
+    window.print();
+  };
+
+  return (
+    <div className="bookingconfirmPage">
+      <h1 className="confirmationTitle">Booking Confirmation</h1>
+      <div className="confirmationContainer">
+        <div className="confirmationDetails">
+          <p><strong>Name:</strong> {bookingDetails.name}</p>
+          <p><strong>Email:</strong> {bookingDetails.email}</p>
+          <p><strong>Contact:</strong> {bookingDetails.contact}</p>
+          <p><strong>Arrival Date & Time:</strong> {bookingDetails.arrivalDate} at {bookingDetails.arrivalTime}</p>
+          <p><strong>Departure Date & Time:</strong> {bookingDetails.departureDate} at {bookingDetails.departureTime}</p>
+          <p><strong>Number of Adults:</strong> {bookingDetails.adults}</p>
+          <p><strong>Number of Children:</strong> {bookingDetails.children}</p>
+          <p><strong>Payment Status:</strong> {bookingDetails.paymentStatus}</p>
+        </div>
+        <div className="confirmationActions">
+          <button onClick={handlePrint}>Print Confirmation</button>
+          <button onClick={() => window.alert('Download functionality will be added later.')}>Download Confirmation</button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default BookingConfirmation;

@@ -1,0 +1,58 @@
+.bookingconfirmPage {
+    background-image: url("/public/Assets/images/img15.jpg");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.confirmationTitle {
+    font-size: 2em; 
+    color: white;
+    margin-bottom: 20px;
+}
+
+.confirmationContainer {
+    max-width: 1500px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #e4e3e3;
+    text-align: center;
+}
+
+.confirmationDetails {
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+.confirmationDetails p {
+    margin: 10px 0;
+}
+
+.confirmationActions {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.confirmationActions button {
+    padding: 10px 20px;
+    border-radius: 4px;
+    border: none;
+    background-color: #757373;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease; 
+}
+
+.confirmationActions button:hover {
+    background-color: #555353;
+    transform: translateY(-2px); 
+}

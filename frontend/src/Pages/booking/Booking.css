@@ -1,0 +1,86 @@
+
+.bookingPage {
+    background-image: url("/public/Assets/images/img15.jpg");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.bookingContainer {
+    padding: 40px;
+    background-color: #e4e3e3(255, 255, 255, 0.9); 
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 8px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+    z-index: 2; 
+}
+
+
+.bookingForm {
+    background: #e4e3e3; 
+    border-radius: 8px; 
+    padding: 40px;
+    width: 100%;
+    max-width: 600px; 
+}
+
+/* Style for form elements */
+.bookingForm input,
+.bookingForm select {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box; 
+}
+
+.bookingForm input:focus,
+.bookingForm select:focus {
+    border-color: #007bff; 
+    outline: none; 
+}
+
+.dateTimeContainer,
+.guestContainer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.dateTimeContainer div,
+.guestContainer div {
+    flex: 1;
+    min-width: 200px;
+}
+
+.bookingForm button {
+    background-color: #757373; 
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 10px;
+    transition: background-color 0.3s; 
+}
+
+.bookingForm button:hover {
+    background-color: #555353; 
+}
+
+h1 {
+    margin-bottom: 20px;
+    font-size: 2em;
+    color: white;
+}
