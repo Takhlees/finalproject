@@ -8,6 +8,8 @@ import Hotel from "./Pages/hotel/Hotel";
 import Booking from "./Pages/booking/Booking";
 import Payment from "./Pages/payment/Payment";
 import BookingConfirmation from "./Pages/bookingconfirmation/BookingConfirmation";
+import Login from "./Pages/auth/Login";
+import Register from "./Pages/auth/Register";
 
 
 function App() {
@@ -19,6 +21,8 @@ function App() {
         <Route path="/booking" element={<Booking/>} />
         <Route path="/payment" element={<Payment/>} />
         <Route path="/bookingconfirmation" element={<BookingConfirmation/>} />
+        <Route path="/auth/login" element={<Login/>} />
+        <Route path="/auth/register" element={<Register/>} />
       </Routes>
     </BrowserRouter>
   );

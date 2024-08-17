@@ -1,0 +1,82 @@
+.authpage {
+  background-image: url("/public/Assets/images/img15.jpg");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.authContainer {
+    width:80%;
+    max-width: 400px;
+    margin: 0 auto;
+    margin-top: 70px;
+    margin-bottom: 30px;
+    padding: 40px;
+    border-radius: 8px;
+    background-color: #eaeaea;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  
+  .authContainer h1 {
+    margin-bottom: 20px;
+    color: #333; 
+    font-size: 24px;
+    text-align: center;
+  }
+  
+  .authContainer .inputField {
+    margin-bottom: 15px;
+    text-align: left;
+  }
+  
+  .inputField label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  .inputField input,
+  .inputField select {
+    width: 100%;
+    padding: 10px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+  }
+  
+ .authContainer button {
+    width: 100%;
+    padding: 12px;
+    margin-top: 10px;
+    border-radius: 4px;
+    border: none;
+    background-color: #8f8a8a;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+ .authContainer button:hover {
+    background-color: #746f6f;
+  }
+  
+  .authContainer p.terms {
+    margin-top: 20px;
+    font-size: 14px;
+    color: #666;
+  }
+  
+  .authContainer p.terms a {
+    color: #007bff;
+    text-decoration: none;
+  }
+  
+  .authContainer p.terms a:hover {
+    text-decoration: underline;
+  }
