@@ -1,13 +1,18 @@
 import React from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import './BookingConfirmation.css';
 
 const BookingConfirmation = () => {
   const location = useLocation();
   const bookingDetails = location.state || {};
+  const navigate = useNavigate();
 
   const handlePrint = () => {
     window.print();
+  };
+
+  const handleContactUs = () => {
+    navigate('/contact'); // Assuming you have a route for the Contact Us page
   };
 
   return (
@@ -27,6 +32,7 @@ const BookingConfirmation = () => {
         <div className="confirmationActions">
           <button onClick={handlePrint}>Print Confirmation</button>
           <button onClick={() => window.alert('Download functionality will be added later.')}>Download Confirmation</button>
+          <button onClick={handleContactUs}>Contact Us</button> {/* Contact Us Button */}
         </div>
       </div>
     </div>

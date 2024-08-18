@@ -10,6 +10,9 @@ import Payment from "./Pages/payment/Payment";
 import BookingConfirmation from "./Pages/bookingconfirmation/BookingConfirmation";
 import Login from "./Pages/auth/Login";
 import Register from "./Pages/auth/Register";
+import List from "./Pages/list/List";
+import Contact from "./Pages/contact/Contact";
+import Review from "./Pages/review/Review";
 
 
 function App() {
@@ -19,7 +22,10 @@ function App() {
         <Route path="/" element={<Home/>}/>
         <Route path="/hotels/:id" element={<Hotel/>}/>
         <Route path="/booking" element={<Booking/>} />
+        <Route path="/hotels" element={<List/>}/>
         <Route path="/payment" element={<Payment/>} />
+        <Route path="/hotel/:id/review" element={<Review/>} />
+        <Route path="/contact" element={<Contact/>}/>
         <Route path="/bookingconfirmation" element={<BookingConfirmation/>} />
         <Route path="/auth/login" element={<Login/>} />
         <Route path="/auth/register" element={<Register/>} />
