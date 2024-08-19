@@ -4,7 +4,6 @@ import { loadStripe } from '@stripe/stripe-js';
 import { Elements, CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import './Payment.css';
 
-// Load the publishable key from Stripe dashboard
 const stripePromise = loadStripe('your-publishable-key-here');
 
 const Payment = () => {
@@ -21,6 +20,8 @@ const CheckoutForm = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
+  const { amount, name, email, contact, userID } = location.state; 
+
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -30,7 +31,6 @@ const CheckoutForm = () => {
 
     const cardElement = elements.getElement(CardElement);
 
-   
     const { error, paymentMethod } = await stripe.createPaymentMethod({
       type: 'card',
       card: cardElement,
@@ -41,15 +41,18 @@ const CheckoutForm = () => {
       return;
     }
 
-    // TODO: Send paymentMethod.id and booking details to your backend to complete the payment
     console.log('Payment Method:', paymentMethod);
+    console.log('Amount:', amount);
 
-    // Mock successful payment response
-    const paymentSuccess = true;
+    const paymentSuccess = true; 
 
     if (paymentSuccess) {
-      
-      navigate('/confirmation', { state: { ...location.state, paymentStatus: 'success' } });
+      navigate('/confirmation', {
+        state: {
+          ...location.state,
+          paymentStatus: 'success',
+        },
+      });
     } else {
       console.error('Payment failed');
     }
@@ -58,10 +61,11 @@ const CheckoutForm = () => {
   return (
     <div className="paymentContainer">
       <h1>Complete Your Payment</h1>
+      <p>Payment Amount: ${amount}</p>
       <form onSubmit={handleSubmit} className="paymentForm">
         <CardElement className="cardElement" />
         <button type="submit" disabled={!stripe}>
-          Pay Now
+          Pay ${amount}
         </button>
       </form>
     </div>
