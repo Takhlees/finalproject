@@ -14,9 +14,9 @@ function Home () {
         <Navbar/>
         <Header/>
         <div className="homeContainer">
-        <h1 className="homeTitle">Browse by property type</h1>
+        <h1 className="homeTitle">Browse by room type</h1>
        <PropertyList/>    
-       <h1 className="homeTitle">Reserve a top-rated vacation rental</h1>
+       <h1 className="homeTitle">Rooms Our Guests Love</h1>
        <FeaturedProperties/>
        <MailList/>
        <Footer/>

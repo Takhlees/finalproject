@@ -10,8 +10,8 @@ const PropertyList = () => {
           className="pListImg"
         />
         <div className="pListTitles">
-          <h1>Hotels</h1>
-          <h2>233 hotels</h2>
+          <h1>Standard Rooms</h1>
+          <h2>20 rooms</h2>
         </div>
       </div>
       <div className="pListItem">
@@ -21,19 +21,19 @@ const PropertyList = () => {
           className="pListImg"
         />
         <div className="pListTitles">
-          <h1>Apartments</h1>
-          <h2>2331 hotels</h2>
+          <h1>Deluxe Rooms</h1>
+          <h2>22 rooms</h2>
         </div>
       </div>
       <div className="pListItem">
         <img
-          src="/Assets/images/img3.jpg"
+          src="/Assets/images/img3.webp"
           alt=""
           className="pListImg"
         />
         <div className="pListTitles">
-          <h1>Resorts</h1>
-          <h2>2331 hotels</h2>
+          <h1>Suites</h1>
+          <h2>20 suites</h2>
         </div>
       </div>
       
