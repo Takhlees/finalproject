@@ -1,5 +1,8 @@
 exports.getDashboardMetrics = async (req, res) => {
     try {
+      if (req.user.role !== 'admin') {
+        return res.status(403).json({ message: 'Access Denied' });
+    }
       const totalRooms = await getTotalRooms();
       const occupiedRooms = await getOccupiedRooms();
       const freeRooms = await getFreeRooms();

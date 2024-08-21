@@ -9,19 +9,45 @@ const Review = () => {
 
   useEffect(() => {
    
-    const fetchedReviews = [
-      { id: 1, text: "Great place to stay!" },
-      { id: 2, text: "Very comfortable and clean." }
-    ];
-    setReviews(fetchedReviews);
+    const fetchReviews = async () => {
+      try {
+        const response = await fetch(`http://localhost:4000/api/reviews/${id}`);
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        const fetchedReviews = await response.json();
+        setReviews(fetchedReviews);
+      } catch (error) {
+        console.error('Error fetching reviews:', error);
+      }
+    };
+
+    fetchReviews();
   }, [id]);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (reviewText.trim()) {
-      
-      setReviews([...reviews, { id: reviews.length + 1, text: reviewText }]);
-      setReviewText(""); 
+      try {
+        const response = await fetch('http://localhost:4000/api/reviews/', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ id, comment: reviewText }),
+        });
+
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+
+        // After successful submission, fetch updated reviews
+        const newReview = await response.json();
+        setReviews([...reviews, newReview]);
+        setReviewText(""); 
+      } catch (error) {
+        console.error('Error submitting review:', error);
+      }
     }
   };
 

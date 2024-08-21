@@ -1,249 +1,66 @@
+/* Global Styles (already included) */
 body {
     font-family: 'Roboto', sans-serif;
-    background-color: #f4f7fc;
-    margin: 0;
-    padding: 0;
-    color: #34495e;
-}
-
-.app {
-    display: flex;
-    height: 100vh;
-}
-
-.sidebar {
-    width: 250px;
-    background-color: #2c3e50;
-    color: white;
-    display: flex;
-    flex-direction: column;
-    padding: 20px;
-    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-}
-
-.sidebar h2 {
-    text-align: center;
-    font-size: 2.5rem;
-    margin-bottom: 30px;
-}
-
-.sidebar ul {
-    list-style: none;
-    padding: 0;
-    flex-grow: 1;
-}
-
-.sidebar ul li {
-    margin: 20px 0;
-}
-
-.sidebar ul li a {
-    color: #ffffff; /* Dark gray text for modern look */
-    background-color: #2c3e50; /* White background */
-    text-decoration: none; /* Remove underline */
-    font-size: 1rem; /* Font size */
-    padding: 12px 20px; /* Comfortable padding */
-    display: block;
-    border-radius: 8px; /* Smooth rounded corners */
-    border: 2px solid #007bff; /* Border outline with a modern blue color */
-    transition: all 0.3s ease; /* Smooth transition for all effects */
-    margin-bottom: 15px; /* Space between buttons */
-    text-align: center; /* Center the text */
-    letter-spacing: 0.5px; /* Slightly increased letter spacing */
-}
-
-.sidebar ul li a:hover {
-    background-color: #007bff; /* Blue background on hover */
-    color: #fff; /* White text on hover */
-    border-color: #0056b3; /* Darker blue border on hover */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
-}
-
-.sidebar ul li a:active {
-    background-color: #0056b3; /* Even darker blue when clicked */
-    border-color: #003d80; /* Darkest blue border on click */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Slightly reduce shadow on click */
-}
-
-
-.sidebar ul li a:hover {
-    background-color: #1a252f;
-}
-
-.navbar {
-    background-color: #2980b9;
-    padding: 15px;
-    color: white;
+    background-color: #f4f5f7;
+    color: #333;
+    line-height: 1.6;
+  }
+  
+  /* Navigation Bar Styles */
+  .navbar {
+    background-color: #007bff;
+    padding: 10px 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-.navbar h1 {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .navbar h1 {
+    color: #fff;
+    font-size: 1.8rem;
     margin: 0;
-    font-size: 1.5rem;
-}
-
-.navbar button {
-    background-color: #2c3e50;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.navbar button:hover {
-    background-color: #1a252f;
-}
-
-.main-content {
-    flex: 1;
-    padding: 20px;
-    overflow-y: auto;
-}
-
-.dashboard-cards {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  }
+  
+  .nav-links {
+    list-style: none;
+    display: flex;
     gap: 20px;
-}
-
-.card {
-    background-color: #3498db;
-    padding: 20px;
-    border-radius: 8px;
-    text-align: center;
-    color: white;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease;
-}
-
-.card:hover {
-    transform: translateY(-5px);
-}
-
-.card h3 {
-    margin: 0;
-    font-size: 1.2rem;
-    margin-bottom: 10px;
-}
-
-.card p {
-    margin: 0;
-    font-size: 1.5rem;
-}
-
-.table-container {
-    background-color: white;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    margin-top: 20px;
-}
-
-.table-container h2 {
-    margin-bottom: 20px;
-    font-size: 1.5rem;
-    color: #2980b9;
-}
-
-table {
-    width: 100%;
-    border-collapse: collapse;
+  }
+  
+  .nav-links li {
+    display: inline;
+  }
+  
+  .nav-links a {
+    color: #fff;
     font-size: 1rem;
-}
-
-thead {
-    background-color: #2980b9;
-    color: white;
-}
-
-th, td {
-    padding: 12px;
-    text-align: left;
-    border-bottom: 1px solid #ddd;
-}
-
-tr:hover {
-    background-color: #f2f2f2;
-}
-
-th {
-    font-weight: bold;
-}
-
-button {
-    background-color: #2980b9;
-    color: white;
-    border: none;
-    padding: 8px 16px;
+    text-decoration: none;
+    padding: 8px 12px;
     border-radius: 4px;
-    cursor: pointer;
     transition: background-color 0.3s ease;
-}
-
-button:hover {
-    background-color: #1a69a4;
-}
-
-
-
-.login-container {
-    width: 100%;
-    max-width: 400px;
-    margin: 100px auto;
-    padding: 20px;
-    background-color: white;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    text-align: center;
-}
-
-.login-container h2 {
-    color: #2980b9;
-    margin-bottom: 20px;
-}
-
-.form-group {
-    margin-bottom: 20px;
-    text-align: left;
-}
-
-label {
-    font-weight: bold;
-    margin-bottom: 8px;
-    display: block;
-}
-
-input[type="email"], input[type="password"] {
-    width: 90%;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    font-size: 1rem;
-}
-
-button[type="submit"] {
-    width: 100%;
-    padding: 10px;
-    background-color: #2980b9;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 1.1rem;
-    margin-top: 10px;
-    transition: background-color 0.3s ease;
-}
-
-button[type="submit"]:hover {
-    background-color: #1a69a4;
-}
-
-.error {
-    color: red;
-    margin-top: 10px;
-}
+  }
+  
+  .nav-links a:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .navbar {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  
+    .nav-links {
+      flex-direction: column;
+      gap: 10px;
+      width: 100%;
+    }
+  
+    .nav-links a {
+      width: 100%;
+      text-align: center;
+    }
+  }
+  

@@ -5,12 +5,9 @@ const reviewSchema = new Schema({
   bookingId: {
     type: Schema.Types.ObjectId,
     ref: 'Booking',
-    required: true
+   
   },
-  rating: {
-    type: Number,
-    required: true
-  },
+ 
   comment: {
     type: String,
     required: true

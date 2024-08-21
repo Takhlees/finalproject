@@ -27,6 +27,13 @@ const Login = () => {
       });
 
       const data = await response.json();
+      if (data.role === 'admin') {
+        // Redirect to admin portal
+        window.location.href = 'http://localhost:3001';
+    } else {
+        // Redirect to frontend
+        navigate('/');
+    }
       if (response.ok) {
        
         console.log('Login successful:', data);
