@@ -25,9 +25,26 @@ const Booking = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
-    navigate('/payment', { state: { ...formData } });
+    
+    try {
+      const response = await fetch('http://localhost:4000/api/bookings/add', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData)
+      });
+      const data = await response.json();
+      if (response.ok) {
+        console.log('Booking successful:', data);
+        localStorage.setItem('token' , data.token);
+        navigate('/payment', { state: { ...formData } });
+      } else {
+        console.error(data.message);
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    }
   };
 
   return (

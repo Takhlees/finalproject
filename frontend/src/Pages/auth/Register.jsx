@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import './Auth.css';
 
 const Register = () => {
+ 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState(''); 
@@ -10,7 +11,7 @@ const Register = () => {
 
   const navigate = useNavigate(); 
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
     if (password !== confirmPassword) {
       alert("Passwords do not match!");
@@ -21,7 +22,29 @@ const Register = () => {
     
     
     navigate('/auth/login');
+    try {
+      const response = await fetch('http://localhost:4000/api/users/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email,
+          password,
+          role
+        })
+      });
+      const data = await response.json();
+      if (response.ok) {
+        console.log('Registration successful:', data);
+        localStorage.setItem('token' , data.token);
+      } else {
+        console.error(data.message);
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    }
   };
+
+  
 
   return (
     <div className='authpage'>

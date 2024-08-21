@@ -9,9 +9,8 @@ const Login = () => {
   const [notification, setNotification] = useState('');
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    
     console.log(`Login with email: ${email}, role: ${role}`);
 
     setNotification('You have successfully logged in!');
@@ -19,6 +18,29 @@ const Login = () => {
     setTimeout(() => {
       navigate('/');
     }, 2000); 
+
+    try {
+      const response = await fetch('http://localhost:4000/api/users/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password })
+      });
+
+      const data = await response.json();
+      if (response.ok) {
+       
+        console.log('Login successful:', data);
+       
+        localStorage.setItem('token', data.token);
+      
+      } else {
+        console.error(data.message);
+        
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      
+    }
   };
 
   return (
