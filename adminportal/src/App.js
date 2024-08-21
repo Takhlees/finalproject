@@ -1,62 +1,38 @@
-import React, { useState } from 'react';
-import './assets/styles/global.css';
-import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
-import Sidebar from './components/Sidebar';
-import Navbar from './components/Navbar';
-import Dashboard from './components/Dashboard';
-import RoomManagement from './components/RoomManagement';
-import BookingManagement from './components/BookingManagement';
-import UserManagement from './components/UserManagement';
-import Analytics from './components/Analytics';
-import Reports from './components/Reports';
-import Settings from './components/Settings';
-import Login from './components/Login';
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
+import Dashboard from './pages/Dashboard';
+import ManageEmployees from './pages/ManageEmployees';
+import ManageRooms from './pages/ManageRooms';
+import ManageBookings from './pages/ManageBookings';
+import Reviews from './pages/Reviews';
+import './assets/styles/global.css';  // Ensure you import the Global.css
 
-function App() {
-    const [isAuthenticated, setIsAuthenticated] = useState(false);
-
-    const handleLogin = (email, password) => {
-        const fixedEmail = 'admin@example.com';
-        const fixedPassword = 'admin123';
-
-        if (email === fixedEmail && password === fixedPassword) {
-            setIsAuthenticated(true);
-        } else {
-            alert('Invalid email or password');
-        }
-    };
-
-    const handleLogout = () => {
-        setIsAuthenticated(false);
-    };
-
-    return (
-        <Router>
-            {isAuthenticated ? (
-                <div className="app">
-                    <Sidebar />
-                    <div className="main-content">
-                        <Navbar onLogout={handleLogout} />
-                        <Routes>
-                            <Route path="/dashboard" element={<Dashboard />} />
-                            <Route path="/rooms" element={<RoomManagement />} />
-                            <Route path="/bookings" element={<BookingManagement />} />
-                            <Route path="/usermanagement" element={<UserManagement />} />
-                            <Route path="/analytics" element={<Analytics />} />
-                            <Route path="/reports" element={<Reports />} />
-                            <Route path="/settings" element={<Settings />} />
-                            <Route path="*" element={<Navigate to="/dashboard" />} />
-                        </Routes>
-                    </div>
-                </div>
-            ) : (
-                <Routes>
-                    <Route path="/" element={<Login onLogin={handleLogin} />} />
-                    <Route path="*" element={<Navigate to="/" />} />
-                </Routes>
-            )}
-        </Router>
-    );
-}
+const App = () => {
+  return (
+    <Router>
+      <header>
+        <nav className="navbar">
+          <h1>Hotel Admin Portal</h1>
+          <ul className="nav-links">
+            <li><Link to="/">Dashboard</Link></li>
+            <li><Link to="/employees">Manage Employees</Link></li>
+            <li><Link to="/rooms">Manage Rooms</Link></li>
+            <li><Link to="/bookings">Manage Bookings</Link></li>
+            <li><Link to="/reviews">Reviews</Link></li>
+          </ul>
+        </nav>
+      </header>
+      <div className="container">
+        <Routes>
+          <Route path="/" element={<Dashboard />} />
+          <Route path="/employees" element={<ManageEmployees />} />
+          <Route path="/rooms" element={<ManageRooms />} />
+          <Route path="/bookings" element={<ManageBookings />} />
+          <Route path="/reviews" element={<Reviews />} />
+        </Routes>
+      </div>
+    </Router>
+  );
+};
 
 export default App;
