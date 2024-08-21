@@ -8,7 +8,7 @@ import PropertyList from "../../Components/propertyList/PropertyList"
 
 import "./Home.css"
 
-const Home = () => {
+function Home () {
   return (
     <div>
         <Navbar/>

@@ -4,7 +4,9 @@ import { loadStripe } from '@stripe/stripe-js';
 import { Elements, CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import './Payment.css';
 
-const stripePromise = loadStripe('your-publishable-key-here');
+
+// Load the publishable key from Stripe dashboard
+const stripePromise = loadStripe('pk_test_51PoP9sG2pH36a60QUpBlEvvFEdlW7BTQXzHTLf00sxF4q8H2HXxnFJHWKBIetYBtezUeAb0ZOoGTtTdUHR4khcuy006LiG7TxZ');
 
 const Payment = () => {
   return (
