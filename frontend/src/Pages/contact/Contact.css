@@ -47,7 +47,7 @@
 }
 
 .contactForm textarea {
-    height: 130px; /* Adjust this value to increase the textarea height */
+    height: 130px; 
 }
 
 .contactForm button {
@@ -63,4 +63,40 @@
 .contactForm button:hover {
     background-color: #555353;
     transform: translateY(-2px);
+}
+
+@media (max-width: 768px) {
+    .contactTitle {
+        font-size: 1.8em;
+        text-align: center;
+    }
+
+    .contactForm {
+        width: 80%;
+        padding: 30px;
+    }
+
+    .contactForm textarea {
+        height: 100px;
+    }
+}
+
+@media (max-width: 480px) {
+    .contactTitle {
+        font-size: 1.5em;
+    }
+
+    .contactForm {
+        width: 80%;
+        padding: 20px;
+    }
+
+    .contactForm textarea {
+        height: 80px;
+    }
+
+    .contactForm button {
+        padding: 8px 16px;
+        font-size: 14px;
+    }
 }

@@ -1,5 +1,5 @@
 .navbar {
-  height: 50px;
+  height: auto; 
   background-color: #003580;
   display: flex;
   justify-content: center;
@@ -8,11 +8,14 @@
 
 .navContainer {
   width: 100%;
+  margin-top: 20px;
   max-width: 1024px;
   color: white;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  padding: 0 10px;
+  flex-wrap: wrap; 
 }
 
 .logo {
@@ -37,6 +40,64 @@
   color: white;
 }
 
+.navItems {
+  display: flex;
+  gap: 10px; 
+}
+
 .navItems a {
   text-decoration: none;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .navContainer {
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+  }
+
+  .logo {
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+
+  .navItems {
+    width: 100%; 
+    display: flex;
+    justify-content: center; 
+    gap: 10px;
+  }
+
+  .navButton {
+    font-size: 12px;
+    padding: 8px 15px;
+    width: auto; 
+    margin: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .navbar {
+    height: auto;
+    padding: 10px 0;
+  }
+
+  .logo {
+    font-size: 14px;
+    margin-top: 10px;
+  }
+
+  .navItems {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  .navButton {
+    font-size: 11px;
+    padding: 8px 12px;
+    width: auto;
+  }
 }

@@ -166,3 +166,84 @@
   .addReview:hover {
     background-color: #0668ad;
   }
+
+  @media (max-width: 1024px) {
+    .hotelWrapper {
+        flex-direction: column;
+    }
+
+    .hotelImgWrapper {
+        width: 50%;
+    }
+}
+
+@media (max-width: 768px) {
+    .hotelTitle {
+        font-size: 20px;
+    }
+
+    .hotelAddress {
+        font-size: 10px;
+    }
+
+    .hotelImgWrapper {
+        width: 100%;
+    }
+
+    .hotelDetails {
+        flex-direction: column;
+    }
+
+    .hotelDetailsTexts,
+    .hotelDetailsPrice {
+        width: 100%;
+    }
+
+    .hotelDetailsPrice {
+        margin-top: 20px;
+    }
+
+    .sliderImg {
+        height: 60vh;
+    }
+}
+
+@media (max-width: 480px) {
+    .hotelTitle {
+        font-size: 18px;
+    }
+
+    .hotelAddress {
+        font-size: 8px;
+    }
+
+    .hotelDesc {
+        font-size: 12px;
+    }
+
+    .hotelDetailsPrice > h1 {
+        font-size: 16px;
+    }
+
+    .hotelDetailsPrice > span {
+        font-size: 12px;
+    }
+
+    .hotelDetailsPrice > h2 {
+        font-size: 14px;
+    }
+
+    .hotelDetailsPrice > button {
+        padding: 8px 16px;
+        font-size: 14px;
+    }
+
+    .sliderImg {
+        height: 400vh;
+    }
+
+    .addReview {
+        padding: 8px 16px;
+        font-size: 14px;
+    }
+}

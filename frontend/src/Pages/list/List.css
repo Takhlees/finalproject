@@ -82,3 +82,86 @@
     flex: 3;
   }
   
+
+  @media (max-width: 1024px) {
+    .listWrapper {
+        flex-direction: column;
+        gap: 10px;
+        padding: 0 10px; /* Add padding on smaller screens */
+    }
+
+    .listSearch {
+        position: static;
+        width: 100%;
+    }
+
+    .listResult {
+        flex: 1;
+    }
+}
+
+@media (max-width: 768px) {
+    .listContainer {
+        padding: 0 10px; /* Add padding to the container */
+    }
+
+    .listWrapper {
+        padding: 0;
+    }
+
+    .lsTitle {
+        font-size: 18px;
+    }
+
+    .lsItem > label {
+        font-size: 10px;
+    }
+
+    .lsItem > input,
+    .lsItem > span {
+        height: 25px;
+        padding: 4px;
+    }
+
+    .lsOptionItem {
+        font-size: 10px;
+    }
+
+    .listSearch > button {
+        padding: 8px;
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    .listContainer {
+        padding: 0 5px; /* Further reduce padding on very small screens */
+    }
+
+    .listWrapper {
+        padding: 0;
+    }
+
+    .lsTitle {
+        font-size: 16px;
+    }
+
+    .lsItem > label {
+        font-size: 8px;
+    }
+
+    .lsItem > input,
+    .lsItem > span {
+        height: 20px;
+        padding: 3px;
+    }
+
+    .lsOptionItem {
+        font-size: 8px;
+    }
+
+    .listSearch > button {
+        padding: 6px;
+        font-size: 12px;
+    }
+}
