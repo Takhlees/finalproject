@@ -4,7 +4,6 @@ import { loadStripe } from '@stripe/stripe-js';
 import { Elements, CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import './Payment.css';
 
-
 // Load the publishable key from Stripe dashboard
 const stripePromise = loadStripe('pk_test_51PoP9sG2pH36a60QUpBlEvvFEdlW7BTQXzHTLf00sxF4q8H2HXxnFJHWKBIetYBtezUeAb0ZOoGTtTdUHR4khcuy006LiG7TxZ');
 
@@ -33,30 +32,47 @@ const CheckoutForm = () => {
 
     const cardElement = elements.getElement(CardElement);
 
-    const { error, paymentMethod } = await stripe.createPaymentMethod({
-      type: 'card',
-      card: cardElement,
-    });
-
-    if (error) {
-      console.error(error);
-      return;
-    }
-
-    console.log('Payment Method:', paymentMethod);
-    console.log('Amount:', amount);
-
-    const paymentSuccess = true; 
-
-    if (paymentSuccess) {
-      navigate('/confirmation', {
-        state: {
-          ...location.state,
-          paymentStatus: 'success',
+    try {
+      // Create PaymentIntent on the server
+      const response = await fetch('http://localhost:4000/api/payment/create-payment-intent', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ amount }), // Convert to smallest currency unit
+      });
+      
+      const { clientSecret } = await response.json();
+      if (!clientSecret) {
+        throw new Error('Missing client secret');
+      }
+      // Confirm card payment
+      const { error, paymentIntent } = await stripe.confirmCardPayment(clientSecret, {
+        payment_method: {
+          card: cardElement,
+          billing_details: {
+            name,
+            email,
+            phone: contact,
+          },
         },
       });
-    } else {
-      console.error('Payment failed');
+
+      if (error) {
+        console.error(error);
+        // Handle error and provide feedback to the user
+      } else if (paymentIntent.status === 'succeeded') {
+        console.log('Payment succeeded!');
+        navigate('/confirmation', {
+          state: {
+            ...location.state,
+            paymentStatus: 'success',
+          },
+        });
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      // Handle error and provide feedback to the user
     }
   };
 

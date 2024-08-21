@@ -45,14 +45,14 @@ function App() {
                             <Route path="/analytics" element={<Analytics />} />
                             <Route path="/reports" element={<Reports />} />
                             <Route path="/settings" element={<Settings />} />
-                            <Route path="*" element={<Navigate to="/dashboard" />} />
+                            
                         </Routes>
                     </div>
                 </div>
             ) : (
                 <Routes>
                     <Route path="/" element={<Login onLogin={handleLogin} />} />
-                    <Route path="*" element={<Navigate to="/" />} />
+                   
                 </Routes>
             )}
         </Router>
