@@ -5,7 +5,7 @@ const ManageRooms = () => {
   const [rooms, setRooms] = useState([]);
 
   useEffect(() => {
-    axios.get('/api/rooms')
+    axios.get('http://localhost:4000/api/rooms/')
       .then(response => {
         setRooms(response.data);
       })

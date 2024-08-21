@@ -5,7 +5,7 @@ const ManageBookings = () => {
   const [bookings, setBookings] = useState([]);
 
   useEffect(() => {
-    axios.get('/api/bookings')
+    axios.get('http://localhost:4000/api/bookings')
       .then(response => {
         setBookings(response.data);
       })
@@ -13,7 +13,7 @@ const ManageBookings = () => {
   }, []);
 
   const handleApprove = (id) => {
-    axios.post(`/api/bookings/approve/${id}`)
+    axios.post(`http://localhost:4000/api/bookings/approve/${id}`)
       .then(() => {
         setBookings(bookings.map(booking =>
           booking.id === id ? { ...booking, status: 'Approved' } : booking
@@ -23,7 +23,7 @@ const ManageBookings = () => {
   };
 
   const handleReject = (id) => {
-    axios.post(`/api/bookings/reject/${id}`)
+    axios.post(`http://localhost:4000/api/bookings/reject/${id}`)
       .then(() => {
         setBookings(bookings.map(booking =>
           booking.id === id ? { ...booking, status: 'Rejected' } : booking

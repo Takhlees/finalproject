@@ -1,16 +1,14 @@
 import React, { useState } from 'react';
 import './assets/styles/global.css';
-import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
-import Sidebar from './components/Sidebar';
-import Navbar from './components/Navbar';
-import Dashboard from './components/Dashboard';
-import RoomManagement from './components/RoomManagement';
-import BookingManagement from './components/BookingManagement';
-import UserManagement from './components/UserManagement';
-import Analytics from './components/Analytics';
-import Reports from './components/Reports';
-import Settings from './components/Settings';
-import Login from './components/Login';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+
+
+import Dashboard from './pages/Dashboard';
+import ManageRooms from './pages/ManageRooms';
+import ManageBookings from './pages/ManageBookings';
+import ManageEmployees from './pages/ManageEmployees';
+import Reviews from './pages/Reviews'
+import Login from './pages/Login';
 
 function App() {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -34,18 +32,15 @@ function App() {
         <Router>
             {isAuthenticated ? (
                 <div className="app">
-                    <Sidebar />
+                   
                     <div className="main-content">
-                        <Navbar onLogout={handleLogout} />
+                       
                         <Routes>
                             <Route path="/dashboard" element={<Dashboard />} />
-                            <Route path="/rooms" element={<RoomManagement />} />
-                            <Route path="/bookings" element={<BookingManagement />} />
-                            <Route path="/usermanagement" element={<UserManagement />} />
-                            <Route path="/analytics" element={<Analytics />} />
-                            <Route path="/reports" element={<Reports />} />
-                            <Route path="/settings" element={<Settings />} />
-                            
+                            <Route path="/rooms" element={<ManageRooms />} />
+                            <Route path="/bookings" element={<ManageBookings />} />
+                            <Route path="/employees" element={<ManageEmployees />} />
+                            <Route path="/reviews" element={<Reviews />} />
                         </Routes>
                     </div>
                 </div>

@@ -16,7 +16,7 @@ const ManageEmployees = () => {
 
   // Fetch employees from API
   useEffect(() => {
-    axios.get('/api/employees')
+    axios.get('http://localhost:4000/api/employees')
       .then(response => {
         setEmployees(response.data);
       })
@@ -41,7 +41,7 @@ const ManageEmployees = () => {
   // Handle employee update
   const handleUpdateEmployee = (e) => {
     e.preventDefault();
-    axios.put(`/api/employees/${selectedEmployee.id}`, formData)
+    axios.put(`http://localhost:4000/api/employees/${selectedEmployee.id}`, formData)
       .then(response => {
         setEmployees(employees.map(emp => emp.id === selectedEmployee.id ? response.data : emp));
         setSelectedEmployee(null); // Clear selection after update
@@ -51,7 +51,7 @@ const ManageEmployees = () => {
 
   // Handle employee deletion
   const handleDeleteEmployee = (id) => {
-    axios.delete(`/api/employees/${id}`)
+    axios.delete(`http://localhost:4000/api/employees/${id}`)
       .then(() => {
         setEmployees(employees.filter(emp => emp.id !== id));
         setSelectedEmployee(null); // Clear selection after deletion
