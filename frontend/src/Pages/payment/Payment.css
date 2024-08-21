@@ -40,3 +40,51 @@
 .paymentForm button:hover {
     background-color: #8c8989;
 }
+
+@media (max-width: 768px) {
+    .paymentContainer {
+        margin: 30px auto;
+        padding: 20px;
+    }
+
+    .paymentContainer h1 {
+        font-size: 1.4rem;
+    }
+
+    .paymentForm {
+        gap: 15px;
+    }
+
+    .cardElement {
+        padding: 10px;
+    }
+
+    .paymentForm button {
+        padding: 10px;
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    .paymentContainer {
+        margin: 20px auto;
+        padding: 15px;
+    }
+
+    .paymentContainer h1 {
+        font-size: 1.2rem;
+    }
+
+    .paymentForm {
+        gap: 10px;
+    }
+
+    .cardElement {
+        padding: 8px;
+    }
+
+    .paymentForm button {
+        padding: 8px;
+        font-size: 12px;
+    }
+}

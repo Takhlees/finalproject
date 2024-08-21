@@ -57,3 +57,37 @@
     background-color: #555353;
     transform: translateY(-2px); 
 }
+
+@media (max-width: 768px) {
+    .confirmationTitle {
+        font-size: 1.6em;
+    }
+
+    .confirmationContainer {
+        width: 80%;
+        max-width: 600px;
+        padding: 15px;
+    }
+
+    .confirmationActions {
+        flex-direction: column;
+        gap: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .confirmationTitle {
+        font-size: 1.4em;
+    }
+
+    .confirmationContainer {
+        width: 90%;
+        max-width: 100%;
+        padding: 10px;
+    }
+
+    .confirmationActions button {
+        padding: 8px 16px;
+        font-size: 14px;
+    }
+}

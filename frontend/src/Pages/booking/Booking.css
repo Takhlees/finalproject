@@ -84,3 +84,53 @@ h1 {
     font-size: 2em;
     color: white;
 }
+
+@media (max-width: 768px) {
+    .bookingContainer {
+        padding: 30px;
+    }
+
+    .bookingForm {
+        padding: 30px;
+        max-width: 90%;
+    }
+
+    .bookingForm input,
+    .bookingForm select {
+        margin: 8px 0;
+    }
+
+    .bookingForm button {
+        padding: 8px 16px;
+        font-size: 14px;
+    }
+
+    h1 {
+        font-size: 1.5em;
+    }
+}
+
+@media (max-width: 480px) {
+    .bookingContainer {
+        padding: 20px;
+    }
+
+    .bookingForm {
+        padding: 20px;
+        max-width: 95%;
+    }
+
+    .bookingForm input,
+    .bookingForm select {
+        margin: 6px 0;
+    }
+
+    .bookingForm button {
+        padding: 6px 12px;
+        font-size: 12px;
+    }
+
+    h1 {
+        font-size: 1.2em;
+    }
+}
