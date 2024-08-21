@@ -12,7 +12,7 @@ const BookingConfirmation = () => {
   };
 
   const handleContactUs = () => {
-    navigate('/contact'); // Assuming you have a route for the Contact Us page
+    navigate('/contact');
   };
 
   return (
@@ -28,11 +28,12 @@ const BookingConfirmation = () => {
           <p><strong>Number of Adults:</strong> {bookingDetails.adults}</p>
           <p><strong>Number of Children:</strong> {bookingDetails.children}</p>
           <p><strong>Payment Status:</strong> {bookingDetails.paymentStatus}</p>
+          <p><strong>Amount Paid:</strong> ${bookingDetails.amount}</p>
+          {bookingDetails.userId && <p><strong>User ID:</strong> {bookingDetails.userId}</p>}
         </div>
         <div className="confirmationActions">
           <button onClick={handlePrint}>Print Confirmation</button>
-          <button onClick={() => window.alert('Download functionality will be added later.')}>Download Confirmation</button>
-          <button onClick={handleContactUs}>Contact Us</button> {/* Contact Us Button */}
+          <button onClick={handleContactUs}>Contact Us</button>
         </div>
       </div>
     </div>

@@ -19,6 +19,7 @@
 }
 
 .confirmationContainer {
+    width:30%;
     max-width: 1500px;
     padding: 20px;
     border: 1px solid #ccc;

@@ -3,13 +3,12 @@ import "./Review.css";
 import { useParams } from "react-router-dom";
 
 const Review = () => {
-  const { id } = useParams(); // Hotel ID from URL params
+  const { id } = useParams(); 
   const [reviews, setReviews] = useState([]);
   const [reviewText, setReviewText] = useState("");
 
   useEffect(() => {
-    // Fetch existing reviews for the hotel
-    // This is a placeholder for actual API call
+   
     const fetchedReviews = [
       { id: 1, text: "Great place to stay!" },
       { id: 2, text: "Very comfortable and clean." }
@@ -20,9 +19,9 @@ const Review = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (reviewText.trim()) {
-      // Handle review submission (e.g., post to API)
+      
       setReviews([...reviews, { id: reviews.length + 1, text: reviewText }]);
-      setReviewText(""); // Clear the input field
+      setReviewText(""); 
     }
   };
 
