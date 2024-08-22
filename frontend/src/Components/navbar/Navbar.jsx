@@ -4,11 +4,16 @@ import './Navbar.css';
 
 const Navbar = () => {
   const navigate = useNavigate();
-  const isLoggedIn = !!localStorage.getItem('token'); 
+
+  // Function to check if the token cookie exists
+  const isLoggedIn = document.cookie.includes('token=');
 
   const handleLogout = () => {
-    localStorage.removeItem('token'); 
-    navigate('/auth/login'); 
+    
+    document.cookie = 'token=; path=/; domain=localhost; expires=Thu, 01 Jan 1970 00:00:00 GMT';
+    document.cookie = 'userID=; path=/; domain=localhost; expires=Thu, 01 Jan 1970 00:00:00 GMT';
+
+    navigate('/auth/login');
   };
 
   return (

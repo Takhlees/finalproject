@@ -5,47 +5,50 @@ import './Auth.css';
 const Register = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const [role, setRole] = useState('user');
-  const [notification, setNotification] = useState('');
-  const navigate = useNavigate();
+  const [confirmPassword, setConfirmPassword] = useState(''); 
+  const [role, setRole] = useState('user'); 
 
-  const handleSubmit = async (e) => {
+  const navigate = useNavigate(); 
+
+  const handleSubmit = async(e) => {
     e.preventDefault();
-
     if (password !== confirmPassword) {
-      setNotification('Passwords do not match!');
+      alert("Passwords do not match!");
       return;
     }
-
+    
+    console.log(`Register with email: ${email}, role: ${role}`);
+    
     try {
       const response = await fetch('http://localhost:4000/api/users/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password, role })
+        body: JSON.stringify({
+          email,
+          password,
+          role
+        }),
+        credentials: 'include' 
       });
 
       const data = await response.json();
-
+      
       if (response.ok) {
-        
         console.log('Registration successful:', data);
-        localStorage.setItem('token', data.token);
-        
-        
+        document.cookie = `token=${data.token}; path=/; domain=localhost;`;
+        document.cookie = `userID=${data.id}; path=/; domain=localhost;`;
+
+        // Redirect based on role
         if (data.role === 'admin') {
-          window.location.href = 'http://localhost:3001';
+          window.location.href = 'http://localhost:3001/';
         } else {
           navigate('/');
         }
       } else {
-        
-        console.error(data.message);
-        setNotification(data.message || 'Registration failed!');
+        console.error('Error:', data.message);
       }
     } catch (error) {
       console.error('Error:', error);
-      setNotification('An error occurred during registration.');
     }
   };
 
@@ -90,7 +93,6 @@ const Register = () => {
           </div>
           <button type="submit">Register</button>
         </form>
-        {notification && <div className="notification">{notification}</div>}
         <p className="terms">
           By logging in or creating an account, you agree with our <a href="/terms">Terms & Conditions</a> and <a href="/privacy">Privacy Statement</a>.
         </p>

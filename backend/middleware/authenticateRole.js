@@ -12,20 +12,9 @@ const authenticateRole = (role) => {
     }
 
     // Verify token
-    jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
-      if (err) {
-        return res.status(403).json({ message: 'Failed to authenticate token' });
-      }
-
-      // Check role
-      if (decoded.role !== role) {
-        return res.status(403).json({ message: 'Access Denied' });
-      }
-
-      // Add user data to request object
-      req.user = decoded;
-      next();
-    });
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    req.user = decoded.user; // Ensure this matches the payload structure
+    next();
   };
 };
 

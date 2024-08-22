@@ -17,36 +17,35 @@ const Login = () => {
       const response = await fetch('http://localhost:4000/api/users/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password })
+        body: JSON.stringify({ email, password, role }),
+        credentials: 'include' 
       });
 
       const data = await response.json();
 
       if (response.ok) {
+        console.log('Login successful:', data);
        
-        localStorage.setItem('token', data.token);
+        document.cookie = `token=${data.token}; path=/; domain=localhost;`;
+        document.cookie = `userID=${data.id}; path=/; domain=localhost;`;
 
-       
         setNotification('You have successfully logged in!');
 
         
         setTimeout(() => {
           if (data.role === 'admin') {
-            window.location.href = 'http://localhost:3001'; 
+            window.location.href = 'http://localhost:3001';
           } else {
-            navigate('/'); 
+            navigate('/');
           }
         }, 2000);
-
-        console.log('Login successful:', data);
       } else {
-       
-        setNotification(`Login failed: ${data.message}`);
-        console.error('Login error:', data.message);
+        console.error('Login failed:', data.message);
+        setNotification('Login failed. Please check your credentials.');
       }
     } catch (error) {
       console.error('Error:', error);
-      setNotification('An error occurred during login. Please try again.');
+      setNotification('An error occurred. Please try again later.');
     }
   };
 
