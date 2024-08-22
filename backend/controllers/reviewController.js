@@ -10,10 +10,15 @@ exports.getAllReviews = async (req, res) => {
 };
 
 exports.addReview = async (req, res) => {
-  const review = new Review(req.body);
+  const {comment} = (req.body);
   try {
-    const savedReview = await review.save();
-    res.status(201).json(savedReview);
+  
+    const review = new Review({ comment });
+
+    // Save the review to the database
+    await review.save();
+
+    res.status(201).json({ message: 'Review added successfully', review });
   } catch (error) {
     res.status(400).json({ message: error.message });
   }

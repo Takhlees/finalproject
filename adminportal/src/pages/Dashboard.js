@@ -14,7 +14,7 @@ const Dashboard = () => {
   });
 
   useEffect(() => {
-    axios.get('/api/dashboard-stats')
+    axios.get('http://localhost:4000/api/admin/dashboard')
       .then(response => {
         setStats(response.data);
       })
