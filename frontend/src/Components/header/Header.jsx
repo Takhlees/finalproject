@@ -64,9 +64,9 @@ const Header = ({ type }) => {
                  Unlock a world of discounts!
               </h1>
               <p className="headerDesc">
-                 Sign up for a free TIERS booking account and enjoy instant savings of 10% or more on your travels.
+                 Sign up for a free TIERS booking account and enjoy instant savings of 10% or more on your bookings.
               </p>
-              <button className="headerBtn" onClick={handleSearch}>Book your hotel</button>
+              <button className="headerBtn" onClick={handleSearch}>Book your room</button>
               <div className="headerSearch">
                 <div className="headerSearchItem">
                   <FontAwesomeIcon icon={faBed} className="headerIcon" />

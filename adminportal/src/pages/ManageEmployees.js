@@ -13,6 +13,7 @@ const ManageEmployees = () => {
     email: '',
     salary: ''
   });
+  const [formVisible, setFormVisible] = useState(false); // State to control form visibility
 
   // Fetch employees from API
   useEffect(() => {
@@ -36,6 +37,7 @@ const ManageEmployees = () => {
   const handleSelectEmployee = (employee) => {
     setSelectedEmployee(employee);
     setFormData(employee);
+    setFormVisible(true); // Show the form when an employee is selected for editing
   };
 
   // Handle employee update
@@ -45,6 +47,15 @@ const ManageEmployees = () => {
       .then(response => {
         setEmployees(employees.map(emp => emp.id === selectedEmployee.id ? response.data : emp));
         setSelectedEmployee(null); // Clear selection after update
+        setFormVisible(false); // Hide the form after updating
+        setFormData({
+          name: '',
+          image: '',
+          cnic: '',
+          contact: '',
+          email: '',
+          salary: ''
+        }); // Reset form data
       })
       .catch(error => console.error('Error updating employee:', error));
   };
@@ -55,13 +66,72 @@ const ManageEmployees = () => {
       .then(() => {
         setEmployees(employees.filter(emp => emp.id !== id));
         setSelectedEmployee(null); // Clear selection after deletion
+        setFormVisible(false); // Hide the form after deletion
+        setFormData({
+          name: '',
+          image: '',
+          cnic: '',
+          contact: '',
+          email: '',
+          salary: ''
+        }); // Reset form data
       })
       .catch(error => console.error('Error deleting employee:', error));
+  };
+
+  // Handle adding a new employee
+  const handleAddEmployee = (e) => {
+    e.preventDefault();
+    axios.post('http://localhost:4000/api/employees', formData)
+      .then(response => {
+        setEmployees([...employees, response.data]);
+        setFormVisible(false); // Hide the form after adding a new employee
+        setFormData({
+          name: '',
+          image: '',
+          cnic: '',
+          contact: '',
+          email: '',
+          salary: ''
+        }); // Reset form data
+      })
+      .catch(error => console.error('Error adding employee:', error));
+  };
+
+  // Prepare the form for adding a new employee
+  const handleNewEmployee = () => {
+    setSelectedEmployee(null);
+    setFormData({
+      name: '',
+      image: '',
+      cnic: '',
+      contact: '',
+      email: '',
+      salary: ''
+    }); // Reset form data for new employee
+    setFormVisible(true); // Show the form when "Add New Employee" is clicked
+  };
+
+  // Handle closing the form
+  const handleCloseForm = () => {
+    setFormVisible(false); // Hide the form
+    setSelectedEmployee(null); // Clear selected employee
+    setFormData({
+      name: '',
+      image: '',
+      cnic: '',
+      contact: '',
+      email: '',
+      salary: ''
+    }); // Reset form data
   };
 
   return (
     <div className="manage-employees">
       <h1>Manage Employees</h1>
+
+      <button className="add-new" onClick={handleNewEmployee}>Add New Employee</button>
+
       <div className="table-responsive">
         <table>
           <thead>
@@ -94,10 +164,11 @@ const ManageEmployees = () => {
         </table>
       </div>
 
-      {selectedEmployee && (
+      {formVisible && (
         <div className="employee-form">
-          <h2>Edit Employee Details</h2>
-          <form onSubmit={handleUpdateEmployee}>
+          <button className="close-button" onClick={handleCloseForm}>&times;</button>
+          <h2>{selectedEmployee ? "Edit Employee Details" : "Add New Employee"}</h2>
+          <form onSubmit={selectedEmployee ? handleUpdateEmployee : handleAddEmployee}>
             <label>
               Name:
               <input
@@ -158,7 +229,7 @@ const ManageEmployees = () => {
                 required
               />
             </label>
-            <button type="submit">Update Employee</button>
+            <button type="submit">{selectedEmployee ? "Update Employee" : "Add Employee"}</button>
           </form>
         </div>
       )}

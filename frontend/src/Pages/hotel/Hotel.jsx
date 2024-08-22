@@ -16,12 +16,12 @@ import { useParams, useNavigate } from "react-router-dom";
 const hotels = [
   {
     id: 1,
-    title: "Tower Street Apartments",
-    address: "Elton St 125 New York",
-    distance: "500m from center",
-    priceHighlight: "Book a stay over $114 at this property and get a free airport taxi",
-    description: "Located a 5-minute walk from St. Florian's Gate in Krakow, Tower Street Apartments has accommodations with air conditioning and free WiFi. The units come with hardwood floors and feature a fully equipped kitchenette with a microwave, a flat-screen TV, and a private bathroom with shower and a hairdryer. A fridge is also offered, as well as an electric tea pot and a coffee machine. Popular points of interest near the apartment include Cloth Hall, Main Market Square and Town Hall Tower. The nearest airport is John Paul II International Kraków–Balice, 16.1 km from Tower Street Apartments, and the property offers a paid airport shuttle service.",
-    price: 945,
+    title: "Comfort Suite",
+    address: "123 Comfort Ave, Downtown",
+    distance: "500m from lobby",
+    priceHighlight: "Book a stay over $114 and get a free airport taxi",
+    description: "The Comfort Suite offers a cozy and well-equipped space with air conditioning and modern amenities. The suite includes a fully equipped kitchenette, flat-screen TV, and a private bathroom. Ideal for travelers seeking comfort and convenience close to the city center.",
+    price: 112,
     photos: [
       "/Assets/images/img16.jpg",
       "/Assets/images/img17.jpg",
@@ -33,11 +33,11 @@ const hotels = [
   },
   {
     id: 2,
-    title: "Park Avenue Hotel",
-    address: "Park Ave 456 New York",
-    distance: "1km from center",
-    priceHighlight: "Luxury Suite with Ocean view",
-    description: "The Park Avenue Hotel offers a luxurious stay with a stunning ocean view. Located just 1km from the city center, this hotel provides a free city taxi service for added convenience. The Luxury Suite includes 2 bathrooms, a spacious 50m² area, and 2 king-sized beds. Guests can enjoy the comfort of this well-appointed suite and benefit from free cancellation with the option to book now and pay later.",
+    title: "Luxury Ocean View Suite",
+    address: "123 Comfort Ave, Downtown",
+    distance: "1km from lobby",
+    priceHighlight: "Luxury Suite with ocean view",
+    description: "The Luxury Ocean View Suite provides a spacious and luxurious experience with stunning ocean views. Featuring 2 bathrooms, a generous 50m² area, and 2 king-sized beds, this suite is perfect for those seeking extra comfort and elegance. Enjoy free city taxi service and the option to book now and pay later.",
     price: 250,
     photos: [
       "/Assets/images/img22.jpeg",
@@ -47,65 +47,62 @@ const hotels = [
   },
   {
     id: 3,
-    title: "Grand Plaza Hotel",
-    address: "Grand St 789 New York",
-    distance: "300m from center",
+    title: "Deluxe City View Room",
+    address: "123 Comfort Ave, Downtown",
+    distance: "300m from lobby",
     priceHighlight: "Deluxe Room with city view",
-    description: "Situated 300 meters from the city center, the Grand Plaza Hotel is known for its deluxe room with a beautiful city view. The room features a single bathroom, covers 30m², and includes a king-sized bed. The hotel offers a free breakfast to start your day and assures a worry-free stay with its free cancellation policy. Book with confidence and enjoy the high rating of 8.7.",
+    description: "The Deluxe City View Room offers an elegant and comfortable stay with a beautiful view of the city. The room includes 1 bathroom, a king-sized bed, and covers 30m². Guests can enjoy free breakfast and the flexibility of free cancellation for a worry-free stay.",
     price: 180,
     photos: [
       "/Assets/images/img25.jpg",
       "/Assets/images/img26.jpg",
       "/Assets/images/img27.webp"
     ],
-   
   },
   {
     id: 4,
-    title: "Ocean View Resort",
-    address: "Beach Rd 101 New York",
-    distance: "2km from center",
+    title: "Beachfront Suite",
+    address: "123 Comfort Ave, Downtown",
+    distance: "2km from lobby",
     priceHighlight: "Beachfront Suite with private balcony",
-    description: "The Ocean View Resort, located 2km from the city center, boasts a beachfront suite with a private balcony. This suite is perfect for those who appreciate scenic views and tranquility. It includes 2 bathrooms, covers 45m², and has a queen-sized bed. Enjoy the added benefits of free shuttle service and flexible booking options with free cancellation.",
+    description: "The Beachfront Suite offers a serene retreat with a private balcony and breathtaking beach views. This suite features 2 bathrooms, covers 45m², and includes a queen-sized bed. Enjoy the convenience of free shuttle service and flexible booking options with free cancellation.",
     price: 275,
     photos: [
       "/Assets/images/img28.jpg",
       "/Assets/images/img29.jpg",
       "/Assets/images/img30.jpg"
     ],
-    
   },
   {
     id: 5,
-    title: "City Lights Hotel",
-    address: "City St 202 New York",
-    distance: "700m from center",
+    title: "Modern Skyline Room",
+    address: "123 Comfort Ave, Downtown",
+    distance: "700m from lobby",
     priceHighlight: "Modern Room with skyline view",
-    description: "The City Lights Hotel is ideally located 700 meters from the city center and offers a modern room with a captivating skyline view. The room includes 1 bathroom, is 25m² in size, and features a full-sized bed. Guests are treated to complimentary breakfast and can take advantage of free cancellation to secure their stay. This hotel is perfect for those looking to enjoy the city's vibrant atmosphere.",
+    description: "The Modern Skyline Room provides a contemporary stay with captivating city skyline views. The room includes 1 bathroom, is 25m² in size, and features a full-sized bed. Guests benefit from complimentary breakfast and free cancellation, perfect for enjoying the city's vibrant atmosphere.",
     price: 260,
     photos: [
       "/Assets/images/img31.jpg",
       "/Assets/images/img32.webp",
       "/Assets/images/img33.webp"
     ],
-   
   },
   {
     id: 6,
-    title: "Mountain Retreat",
-    address: "Mountain Rd 303 New York",
-    distance: "5km from center",
+    title: "Mountain View Cabin",
+    address: "123 Comfort Ave, Downtown",
+    distance: "5km from lobby",
     priceHighlight: "Cozy Cabin with mountain view",
-    description: "Located 5km from the city center, Mountain Retreat offers a cozy cabin with a breathtaking mountain view. The cabin includes 1 bathroom, is 35m², and features 2 twin beds, making it ideal for a peaceful getaway. The hotel provides free parking and the option for free cancellation, ensuring a relaxing and convenient stay in the mountains.",
+    description: "The Mountain View Cabin offers a tranquil escape with stunning mountain views. Featuring 1 bathroom, 35m² of space, and 2 twin beds, this cabin is ideal for a peaceful getaway. Enjoy free parking and flexible cancellation options for a relaxing stay in the mountains.",
     price: 200,
     photos: [
       "/Assets/images/img34.jpg",
       "/Assets/images/img35.jpg",
       "/Assets/images/img36.jpg"
     ],
-   
   },
 ];
+
 
 
 const Hotel = () => {

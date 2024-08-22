@@ -23,7 +23,7 @@ const Dashboard = () => {
 
   return (
     <div className="dashboard">
-      <h1>Dashboard</h1>
+      <h1> Dashboard </h1>
       <div className="dashboard-cards">
         <div className="card">
           <h2>Total Rooms</h2>
