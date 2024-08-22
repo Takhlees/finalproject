@@ -4,7 +4,7 @@ import './Booking.css';
 
 const Booking = () => {
   const [formData, setFormData] = useState({
-    userID: '',
+    userId: '',
     name: '',
     email: '',
     contact: '',
@@ -21,13 +21,28 @@ const Booking = () => {
 
 
   useEffect(() => {
-    const userID = localStorage.getItem('userID');
-    if (userID) {
-      setFormData((prevData) => ({
-        ...prevData,
-        userID,
-      }));
-    }
+   
+      fetch(`http://localhost:4000/api/users/currentuser`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('token')}`,
+        },
+      })
+        .then(response => response.json())
+        .then(data => {
+          if (data && data._id ) {
+            console.log(data)
+            setFormData(prevData => ({
+              ...prevData,
+              userId: data._id,
+              name: data.name || '',
+              email: data.email || '',
+              contact: data.contact || '',
+            }));
+          }
+        })
+    
   }, []);
 
   const handleChange = (e) => {
@@ -58,6 +73,7 @@ const Booking = () => {
     } catch (error) {
       console.error('Error:', error);
     }
+    
   };
 
   return (

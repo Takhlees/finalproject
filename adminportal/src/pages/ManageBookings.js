@@ -5,28 +5,28 @@ const ManageBookings = () => {
   const [bookings, setBookings] = useState([]);
 
   useEffect(() => {
-    axios.get('http://localhost:4000/api/bookings')
+    axios.get('http://localhost:4000/api/bookings/')
       .then(response => {
         setBookings(response.data);
       })
       .catch(error => console.error('Error fetching bookings:', error));
   }, []);
 
-  const handleApprove = (id) => {
-    axios.post(`http://localhost:4000/api/bookings/approve/${id}`)
+  const handleApprove = (_id) => {
+    axios.post(`http://localhost:4000/api/bookings/approve/${_id}`)
       .then(() => {
         setBookings(bookings.map(booking =>
-          booking.id === id ? { ...booking, status: 'Approved' } : booking
+          booking._id === _id ? { ...booking, status: 'Approved' } : booking
         ));
       })
       .catch(error => console.error('Error approving booking:', error));
   };
 
-  const handleReject = (id) => {
-    axios.post(`http://localhost:4000/api/bookings/reject/${id}`)
+  const handleReject = (_id) => {
+    axios.post(`http://localhost:4000/api/bookings/reject/${_id}`)
       .then(() => {
         setBookings(bookings.map(booking =>
-          booking.id === id ? { ...booking, status: 'Rejected' } : booking
+          booking._id === _id ? { ...booking, status: 'Rejected' } : booking
         ));
       })
       .catch(error => console.error('Error rejecting booking:', error));
@@ -38,7 +38,7 @@ const ManageBookings = () => {
       <table>
         <thead>
           <tr>
-            <th>Booking ID</th>
+            <th>Booking _id</th>
             <th>Room No</th>
             <th>Status</th>
             <th>Actions</th>
@@ -46,13 +46,13 @@ const ManageBookings = () => {
         </thead>
         <tbody>
           {bookings.map(booking => (
-            <tr key={booking.id}>
-              <td>{booking.id}</td>
+            <tr key={booking._id}>
+              <td>{booking._id}</td>
               <td>{booking.roomNo}</td>
               <td>{booking.status}</td>
               <td>
-                <button onClick={() => handleApprove(booking.id)}>Approve</button>
-                <button onClick={() => handleReject(booking.id)}>Reject</button>
+                <button onClick={() => handleApprove(booking._id)}>Approve</button>
+                <button onClick={() => handleReject(booking._id)}>Reject</button>
               </td>
             </tr>
           ))}

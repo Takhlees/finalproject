@@ -24,7 +24,7 @@ const ManageRooms = () => {
 
   const fetchRooms = async () => {
     try {
-      const response = await axios.get('/api/rooms');
+      const response = await axios.get('http://localhost:4000/api/rooms/');
       setRooms(response.data);
     } catch (error) {
       console.error('Error fetching rooms:', error);
@@ -37,9 +37,9 @@ const ManageRooms = () => {
     setIsEditing(true);
   };
 
-  const handleDelete = async (roomId) => {
+  const handleDelete = async (room) => {
     try {
-      await axios.delete(`/api/rooms/${roomId}`);
+      await axios.delete(`http://localhost:4000/api/rooms/${room._id}`);
       fetchRooms();
     } catch (error) {
       console.error('Error deleting room:', error);
@@ -49,9 +49,9 @@ const ManageRooms = () => {
   const handleSave = async () => {
     try {
       if (selectedRoom) {
-        await axios.put(`/api/rooms/${selectedRoom.id}`, roomForm);
+        await axios.put(`http://localhost:4000/api/rooms/${selectedRoom._id}`, roomForm);
       } else {
-        await axios.post('/api/rooms', roomForm);
+        await axios.post('http://localhost:4000/api/rooms/', roomForm);
       }
       fetchRooms();
       setIsEditing(false);
@@ -72,7 +72,7 @@ const ManageRooms = () => {
 
   const handleRoomClick = async (roomId) => {
     try {
-      const response = await axios.get(`/api/rooms/${roomId}/history`);
+      const response = await axios.get(`http://localhost:4000/api/rooms/`);
       setRoomHistory(response.data);
     } catch (error) {
       console.error('Error fetching room history:', error);
@@ -98,7 +98,7 @@ const ManageRooms = () => {
         </thead>
         <tbody>
           {rooms.map(room => (
-            <tr key={room.id} onClick={() => handleRoomClick(room.id)}>
+            <tr key={room._id} onClick={() => handleRoomClick(room._id)}>
               <td>{room.number}</td>
               <td>{room.type}</td>
               <td>{room.servantName}</td>
@@ -109,7 +109,7 @@ const ManageRooms = () => {
               <td>{room.status}</td>
               <td>
                 <button className="edit" onClick={() => handleEdit(room)}>Edit</button>
-                <button className="delete" onClick={() => handleDelete(room.id)}>Delete</button>
+                <button className="delete" onClick={() => handleDelete(room._id)}>Delete</button>
               </td>
             </tr>
           ))}

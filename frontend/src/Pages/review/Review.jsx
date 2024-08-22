@@ -3,28 +3,12 @@ import "./Review.css";
 import { useParams } from "react-router-dom";
 
 const Review = () => {
-  const { id } = useParams(); 
+  const { _id } = useParams(); 
   const [reviews, setReviews] = useState([]);
   const [reviewText, setReviewText] = useState("");
 
-  useEffect(() => {
-   
-    const fetchReviews = async () => {
-      try {
-        const response = await fetch(`http://localhost:4000/api/reviews/${id}`);
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-        const fetchedReviews = await response.json();
-        setReviews(fetchedReviews);
-      } catch (error) {
-        console.error('Error fetching reviews:', error);
-      }
-    };
-
-    fetchReviews();
-  }, [id]);
-
+  // Fetch existing reviews when component loads
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (reviewText.trim()) {
@@ -34,26 +18,43 @@ const Review = () => {
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({ id, comment: reviewText }),
+          body: JSON.stringify({ _id, comment: reviewText }),
         });
 
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
 
-        // After successful submission, fetch updated reviews
         const newReview = await response.json();
-        setReviews([...reviews, newReview]);
-        setReviewText(""); 
+        console.log(newReview)
+        setReviews(prevReviews => [...prevReviews, newReview]);
+// Add new review to the existing list
+        setReviewText(""); // Clear the text area
       } catch (error) {
         console.error('Error submitting review:', error);
       }
     }
   };
+  useEffect(() => {
+    const fetchReviews = async () => {
+      try {
+        const response = await fetch('http://localhost:4000/api/reviews/');
+        if (!response.ok) {
+          throw new Error('Failed to fetch reviews');
+        }
+        const data = await response.json();
+        setReviews(data);
+      } catch (error) {
+        console.error('Error fetching reviews:', error);
+      }
+    };
+
+    fetchReviews();
+  }, [reviews]);
+
 
   return (
     <div className="reviewPage">
-      
       <div className="reviewContainer">
         <div className="reviewForm">
           <h2>Add a Review</h2>
@@ -70,15 +71,17 @@ const Review = () => {
         </div>
         <div className="reviewList">
           <h2>Existing Reviews</h2>
-          {reviews.length ? (
-            reviews.map((review) => (
-              <div className="reviewItem" key={review.id}>
-                <p>{review.text}</p>
-              </div>
-            ))
-          ) : (
-            <p>No reviews yet.</p>
-          )}
+          <ul>
+            {reviews.length > 0 ? (
+              reviews.map((review) => (
+                <li key={review._id}>
+                  <strong>{review._id}</strong>: {review.comment}
+                </li>
+              ))
+            ) : (
+              <p>No reviews available.</p>
+            )}
+          </ul>
         </div>
       </div>
     </div>

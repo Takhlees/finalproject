@@ -37,7 +37,7 @@ const Login = () => {
       if (response.ok) {
        
         console.log('Login successful:', data);
-       
+        localStorage.setItem('userID', data.id); 
         localStorage.setItem('token', data.token);
       
       } else {

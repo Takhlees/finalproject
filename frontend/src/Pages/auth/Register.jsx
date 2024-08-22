@@ -20,13 +20,12 @@ const Register = () => {
     
     console.log(`Register with email: ${email}, role: ${role}`);
     
-    
-    navigate('/auth/login');
     try {
       const response = await fetch('http://localhost:4000/api/users/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
+         
           email,
           password,
           role
@@ -42,6 +41,7 @@ const Register = () => {
     }
       if (response.ok) {
         console.log('Registration successful:', data);
+        localStorage.setItem('userID', data.id); 
         localStorage.setItem('token' , data.token);
       } else {
         console.error(data.message);

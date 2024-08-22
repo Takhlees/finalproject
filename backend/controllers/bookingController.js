@@ -9,6 +9,52 @@ exports.getAllBookings = async (req, res) => {
   }
 };
 
+// Approve Booking
+exports.approveBooking = async (req, res) => {
+  try {
+    const bookingId = req.params.id;
+
+    // Find the booking by ID and update its status to 'Approved'
+    const updatedBooking = await Booking.findByIdAndUpdate(
+      bookingId,
+      { status: 'Approved' },
+      { new: true } // Return the updated document
+    );
+
+    if (!updatedBooking) {
+      return res.status(404).json({ message: 'Booking not found' });
+    }
+
+    res.status(200).json({ message: 'Booking approved successfully', booking: updatedBooking });
+  } catch (error) {
+    console.error('Error approving booking:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
+};
+
+// Reject Booking
+exports.rejectBooking = async (req, res) => {
+  try {
+    const bookingId = req.params.id;
+
+    // Find the booking by ID and update its status to 'Rejected'
+    const updatedBooking = await Booking.findByIdAndUpdate(
+      bookingId,
+      { status: 'Rejected' },
+      { new: true } // Return the updated document
+    );
+
+    if (!updatedBooking) {
+      return res.status(404).json({ message: 'Booking not found' });
+    }
+
+    res.status(200).json({ message: 'Booking rejected successfully', booking: updatedBooking });
+  } catch (error) {
+    console.error('Error rejecting booking:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
+};
+
 exports.addBooking = async (req, res) => {
   const booking = new Booking(req.body);
   try {

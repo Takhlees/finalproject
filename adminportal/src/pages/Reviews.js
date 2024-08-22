@@ -8,6 +8,7 @@ const Reviews = () => {
     axios.get('http://localhost:4000/api/reviews/')
       .then(response => {
         setReviews(response.data);
+        console.log(response.data)
       })
       .catch(error => console.error('Error fetching reviews:', error));
   }, []);
@@ -17,8 +18,8 @@ const Reviews = () => {
       <h1>Guest Reviews</h1>
       <ul>
         {reviews.map(review => (
-          <li key={review.id}>
-            <strong>{review.guestName}</strong>: {review.comment}
+          <li key={review._id}>
+            <strong>{review._id}</strong>: {review.comment}
           </li>
         ))}
       </ul>
