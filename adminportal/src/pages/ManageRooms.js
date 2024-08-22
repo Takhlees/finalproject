@@ -39,9 +39,9 @@ const ManageRooms = () => {
     setIsAdding(false);
   };
 
-  const handleDelete = async (room) => {
+  const handleDelete = async (roomId) => {
     try {
-      await axios.delete(`http://localhost:4000/api/rooms/${room._id}`);
+      await axios.delete(`http://localhost:4000/api/rooms/${roomId}`);
       fetchRooms();
     } catch (error) {
       console.error('Error deleting room:', error);
@@ -77,7 +77,7 @@ const ManageRooms = () => {
     try {
       const response = await axios.get(`http://localhost:4000/api/rooms/`);
       setRoomHistory(response.data);
-      setSelectedRoom(rooms.find(room => room.id === roomId));
+      setSelectedRoom(rooms.find(room => room._id === roomId));
     } catch (error) {
       console.error('Error fetching room history:', error);
     }
@@ -89,7 +89,7 @@ const ManageRooms = () => {
     setSelectedRoom(null);
     setRoomForm({
       number: '',
-      type: '',
+      type: 'Single',
       servantName: '',
       servantContact: '',
       price: '',
@@ -104,7 +104,7 @@ const ManageRooms = () => {
     setIsAdding(false);
     setRoomForm({
       number: '',
-      type: '',
+      type: 'Single',
       servantName: '',
       servantContact: '',
       price: '',
@@ -136,8 +136,8 @@ const ManageRooms = () => {
         </thead>
         <tbody>
           {rooms.map(room => (
-            <tr key={room.id}>
-              <td onClick={() => handleRoomClick(room.id)}>{room.number}</td>
+            <tr key={room._id}>
+              <td onClick={() => handleRoomClick(room._id)}>{room.number}</td>
               <td>{room.type}</td>
               <td>{room.servantName}</td>
               <td>{room.servantContact}</td>

@@ -8,7 +8,11 @@ const app = express()
 const port = 4000
 
 
-app.use(cors())
+app.use(cors({
+  origin: ['http://localhost:3000', 'http://localhost:3001'],
+  credentials: true
+}));
+
 
 app.use(express.json())
 //Available routes

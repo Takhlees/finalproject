@@ -21,7 +21,7 @@ const CheckoutForm = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const { amount, name, email, contact, userID } = location.state; 
+  const { amount, name, email, contact } = location.state; 
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -29,7 +29,12 @@ const CheckoutForm = () => {
     if (!stripe || !elements) {
       return;
     }
-
+    navigate('/bookingconfirmation', {
+      state: {
+        ...location.state,
+        paymentStatus: 'success',
+      },
+    });
     const cardElement = elements.getElement(CardElement);
 
     try {

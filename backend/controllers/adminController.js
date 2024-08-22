@@ -1,3 +1,14 @@
+const { 
+  getTotalRooms, 
+  getOccupiedRooms, 
+  getFreeRooms, 
+  getTotalBookings, 
+  getApprovedBookings, 
+  getPendingBookings, 
+  getGeneratedRevenue 
+} = require('../services/dashboardService'); // Adjust the path to your actual file
+
+
 exports.getDashboardMetrics = async (req, res) => {
     try {
       if (req.user.role !== 'admin') {
@@ -9,7 +20,7 @@ exports.getDashboardMetrics = async (req, res) => {
       const totalBookings = await getTotalBookings();
       const approvedBookings = await getApprovedBookings();
       const pendingBookings = await getPendingBookings();
-      const generatedRevenue = await getGeneratedRevenue();
+      const revenue = await getGeneratedRevenue();
   
       res.json({
         totalRooms,
@@ -18,7 +29,7 @@ exports.getDashboardMetrics = async (req, res) => {
         totalBookings,
         approvedBookings,
         pendingBookings,
-        generatedRevenue
+        revenue
       });
     } catch (error) {
       res.status(500).json({ message: error.message });

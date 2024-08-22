@@ -25,24 +25,26 @@ const Register = () => {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-         
           email,
           password,
           role
-        })
+        }),
+        credentials: 'include'
       });
       const data = await response.json();
+      console.log(data)
+      console.log(data.role)
       if (data.role === 'admin') {
         // Redirect to admin portal
-        window.location.href = 'http://localhost:3001';
+        window.location.href = 'http://localhost:3001/';
     } else {
         // Redirect to frontend
         navigate('/');
     }
       if (response.ok) {
         console.log('Registration successful:', data);
-        localStorage.setItem('userID', data.id); 
-        localStorage.setItem('token' , data.token);
+        document.cookie = `token=${data.token}; path=/; domain=localhost`;
+        document.cookie = `userID=${data.id}; path=/; domain=localhost`;
       } else {
         console.error(data.message);
       }

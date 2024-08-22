@@ -53,12 +53,17 @@ exports.registerUser = async (req, res) => {
 
     const payload = {
       user: {
-        id: savedUser._id
+        id: savedUser._id ,
+        role: user.role
       }
     };
 
     const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '1h' });
-    res.status(201).json({ token });
+    res.status(201).json({
+      token: token,
+      id : savedUser._id,
+      role: user.role // Include role in response
+    });
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
@@ -79,12 +84,17 @@ exports.loginUser = async (req, res) => {
   
       const payload = {
         user: {
-          id: user._id
+          id: user._id,
+          role: user.role
         }
       };
   
       const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '1h' });
-      res.json({ token });
+      res.status(201).json({
+        id: user._id,
+        token: token,
+        role: user.role // Include role in response
+      });
     } catch (error) {
       res.status(500).json({ message: error.message });
     }

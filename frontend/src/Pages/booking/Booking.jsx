@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Booking.css';
+import Cookies from 'js-cookie';
 
 const Booking = () => {
   const [formData, setFormData] = useState({
@@ -21,21 +22,22 @@ const Booking = () => {
 
 
   useEffect(() => {
-   
+    const userId = Cookies.get('userID');
+    console.log(userId)
       fetch(`http://localhost:4000/api/users/currentuser`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${localStorage.getItem('token')}`,
+          'Authorization': `Bearer ${Cookies.get('token')}`,
         },
       })
         .then(response => response.json())
         .then(data => {
-          if (data && data._id ) {
-            console.log(data)
+          if (formData ) {
+            console.log(formData)
             setFormData(prevData => ({
               ...prevData,
-              userId: data._id,
+              userId: userId,
               name: data.name || '',
               email: data.email || '',
               contact: data.contact || '',
@@ -65,7 +67,7 @@ const Booking = () => {
       const data = await response.json();
       if (response.ok) {
         console.log('Booking successful:', data);
-        localStorage.setItem('token' , data.token);
+        Cookies.set('token', data.token, { path: '/', domain: 'localhost' });
         navigate('/payment', { state: { ...formData } });
       } else {
         console.error(data.message);

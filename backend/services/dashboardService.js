@@ -62,12 +62,12 @@ const getGeneratedRevenue = async () => {
     {
       $group: {
         _id: null,
-        totalRevenue: { $sum: '$totalCost' }
+        GeneratedRevenue: { $sum: '$totalCost' }
       }
     }
   ]);
 
-  return bookings.length > 0 ? bookings[0].totalRevenue : 0;
+  return bookings.length > 0 ? bookings[0].GeneratedRevenue: 0;
 };
 
 module.exports = {

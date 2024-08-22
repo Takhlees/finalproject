@@ -2,26 +2,26 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const roomSchema = new Schema({
-  roomNo: {
+  number: {
     type: String,
     required: true
   },
-  roomType: {
+  type: {
     type: String,
     enum: ['Single', 'Double'],
     required: true
   },
   servantName: String,
   servantContact: String,
-  pricePerDay: {
+  price: {
     type: Number,
     required: true
   },
   image: String,
   description: String,
-  availabilityStatus: {
-    type: Boolean,
-    default: true
+  status: {
+    type: String,
+    required: true
   },
   history: [{
     bookingId: {

@@ -4,7 +4,7 @@ import './BookingConfirmation.css';
 
 const BookingConfirmation = () => {
   const location = useLocation();
-  const bookingDetails = location.state || {};
+  const bookingDetails = location.state ;
   const navigate = useNavigate();
 
   const handlePrint = () => {

@@ -10,6 +10,8 @@ exports.getAllRooms = async (req, res) => {
 };
 
 exports.addRoom = async (req, res) => {
+  console.log("Received data:", req.body); // Log the request body
+
   const room = new Room(req.body);
   try {
     const savedRoom = await room.save();

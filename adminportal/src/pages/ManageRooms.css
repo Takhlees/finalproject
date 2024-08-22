@@ -57,12 +57,13 @@ table tr:last-child td {
 .room-image {
   width: 50px;
   height: 50px;
-  border-radius: 8px;
+  border-radius: 5px;
   object-fit: cover;
 }
 
 button {
   background-color: #007bff;
+  margin: 3px;
   color: #fff;
   padding: 8px 12px;
   border: none;

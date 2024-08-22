@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './Dashboard.css'; // Add custom CSS file for specific styles
+import Cookies from 'js-cookie';
 
 const Dashboard = () => {
   const [stats, setStats] = useState({
@@ -14,9 +15,19 @@ const Dashboard = () => {
   });
 
   useEffect(() => {
-    axios.get('http://localhost:4000/api/admin/dashboard')
+    
+const token = Cookies.get('token');
+    console.log('Token retrieved in Admin Portal:', Cookies.get('token'));
+
+    axios.get('http://localhost:4000/api/admin/dashboard', {
+      headers: {
+        'Authorization': `Bearer ${token}` // Send token as Bearer token
+      }
+    })
       .then(response => {
         setStats(response.data);
+        
+    console.log(response.data);
       })
       .catch(error => console.error('Error fetching dashboard stats:', error));
   }, []);

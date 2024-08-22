@@ -17,7 +17,7 @@ const ManageEmployees = () => {
 
   // Fetch employees from API
   useEffect(() => {
-    axios.get('http://localhost:4000/api/employees')
+    axios.get('http://localhost:4000/api/employees/')
       .then(response => {
         setEmployees(response.data);
       })
@@ -43,9 +43,9 @@ const ManageEmployees = () => {
   // Handle employee update
   const handleUpdateEmployee = (e) => {
     e.preventDefault();
-    axios.put(`http://localhost:4000/api/employees/${selectedEmployee.id}`, formData)
+    axios.put(`http://localhost:4000/api/employees/${selectedEmployee._id}`, formData)
       .then(response => {
-        setEmployees(employees.map(emp => emp.id === selectedEmployee.id ? response.data : emp));
+        setEmployees(employees.map(emp => emp._id === selectedEmployee._id ? response.data : emp));
         setSelectedEmployee(null); // Clear selection after update
         setFormVisible(false); // Hide the form after updating
         setFormData({
@@ -64,7 +64,7 @@ const ManageEmployees = () => {
   const handleDeleteEmployee = (id) => {
     axios.delete(`http://localhost:4000/api/employees/${id}`)
       .then(() => {
-        setEmployees(employees.filter(emp => emp.id !== id));
+        setEmployees(employees.filter(emp => emp._id !== id));
         setSelectedEmployee(null); // Clear selection after deletion
         setFormVisible(false); // Hide the form after deletion
         setFormData({
@@ -82,7 +82,7 @@ const ManageEmployees = () => {
   // Handle adding a new employee
   const handleAddEmployee = (e) => {
     e.preventDefault();
-    axios.post('http://localhost:4000/api/employees', formData)
+    axios.post('http://localhost:4000/api/employees/', formData)
       .then(response => {
         setEmployees([...employees, response.data]);
         setFormVisible(false); // Hide the form after adding a new employee
@@ -147,7 +147,7 @@ const ManageEmployees = () => {
           </thead>
           <tbody>
             {employees.map(employee => (
-              <tr key={employee.id}>
+              <tr key={employee._id}>
                 <td>{employee.name}</td>
                 <td><img src={employee.image} alt={employee.name} className="employee-image" /></td>
                 <td>{employee.cnic}</td>
@@ -156,7 +156,7 @@ const ManageEmployees = () => {
                 <td>{employee.salary}</td>
                 <td>
                   <button onClick={() => handleSelectEmployee(employee)}>Edit</button>
-                  <button className="delete" onClick={() => handleDeleteEmployee(employee.id)}>Delete</button>
+                  <button className="delete" onClick={() => handleDeleteEmployee(employee._id)}>Delete</button>
                 </td>
               </tr>
             ))}
