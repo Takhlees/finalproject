@@ -10,10 +10,10 @@ exports.getAllReviews = async (req, res) => {
 };
 
 exports.addReview = async (req, res) => {
-  const {comment} = (req.body);
+  const {roomId, comment} = (req.body);
   try {
   
-    const review = new Review({ comment });
+    const review = new Review({roomId, comment });
 
     // Save the review to the database
     await review.save();
@@ -26,7 +26,7 @@ exports.addReview = async (req, res) => {
 
 exports.getReviewById = async (req, res) => {
   try {
-    const review = await Review.findById(req.params.id);
+    const review = await Review.find({roomId: req.params.roomId});
     if (review) {
       res.json(review);
     } else {

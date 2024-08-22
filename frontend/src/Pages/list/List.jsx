@@ -21,9 +21,10 @@ const List = () => {
 
   useEffect(() => {
     // Fetch data from API
-    fetch('http://localhost:5000/api/hotels') // Replace with your API endpoint
+    fetch('http://localhost:4000/api/rooms/') // Replace with your API endpoint
       .then(response => response.json())
       .then(data => {
+        console.log([data])
         setHotels(data);
         setLoading(false);
       })
@@ -131,12 +132,9 @@ const List = () => {
             ) : (
               hotels.map((hotel) => (
                 <SearchItem
-                  key={hotel.id}
-                  imageUrl={hotel.imageUrl}
-                  roomNo={hotel.roomNo}
-                  pricePerDay={hotel.pricePerDay}
-                  status={hotel.status}
-                  onClick={() => handleHotelClick(hotel.id)}
+                  key={hotel._id}
+                 hotel= {hotel}
+                  onClick={() => handleHotelClick(hotel._id)}
                 />
               ))
             )}

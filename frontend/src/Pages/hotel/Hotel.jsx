@@ -23,8 +23,9 @@ const Hotel = () => {
   useEffect(() => {
     const fetchHotelDetails = async () => {
       try {
-        const response = await fetch(`/api/hotels/${id}`);
+        const response = await fetch(`http://localhost:4000/api/rooms/${id}`);
         const data = await response.json();
+        
         setHotel(data);
       } catch (error) {
         console.error("Failed to fetch hotel details:", error);
@@ -33,10 +34,6 @@ const Hotel = () => {
     fetchHotelDetails();
   }, [id]);
 
-  const handleOpen = (i) => {
-    setSlideNumber(i);
-    setOpen(true);
-  };
 
   const handleMove = (direction) => {
     let newSlideNumber;
@@ -87,33 +84,22 @@ const Hotel = () => {
         )}
         <div className="hotelWrapper">
           <button className="bookNow" onClick={handleBooking}>Reserve or Book Now!</button>
-          <h1 className="hotelTitle">{hotel.title}</h1>
+          <h1 className="hotelTitle">{hotel.number}</h1>
           <div className="hotelAddress">
             <FontAwesomeIcon icon={faLocationDot} />
             <span>{hotel.address}</span>
           </div>
-          <span className="hotelDistance">{hotel.distance}</span>
-          <span className="hotelPriceHighlight">{hotel.priceHighlight}</span>
-          <div className="hotelImages">
-            {hotel.photos.map((photo, i) => (
-              <div className="hotelImgWrapper" key={i}>
-                <img
-                  onClick={() => handleOpen(i)}
-                  src={photo}
-                  alt=""
-                  className="hotelImg"
-                />
-              </div>
-            ))}
-          </div>
+          <span className="hotelDistance">{hotel.description}</span>
+          <span className="hotelPriceHighlight">{hotel.price}</span>
+         
           <div className="hotelDetails">
             <div className="hotelDetailsTexts">
               <p className="hotelDesc">{hotel.description}</p>
               <div className="hotelRoomDetails">
-                <p>Room Number: {hotel.roomNo}</p>
+                <p>Room Number: {hotel.number}</p>
                 <p>Room Type: {hotel.type}</p>
                 <p>Status: {hotel.status}</p>
-                <p>Price per Day: ${hotel.pricePerDay}</p>
+                <p>Price per Day: ${hotel.price}</p>
               </div>
               <button className="addReview" onClick={handleAddReview}>Add a Review</button>
             </div>

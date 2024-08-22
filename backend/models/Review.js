@@ -2,10 +2,10 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const reviewSchema = new Schema({
-  bookingId: {
-    type: Schema.Types.ObjectId,
+  roomId: {
+    type: mongoose.Schema.Types.ObjectId,
     ref: 'Booking',
-   
+   required:true
   },
  
   comment: {

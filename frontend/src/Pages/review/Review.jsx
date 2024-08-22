@@ -18,7 +18,7 @@ const Review = () => {
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({ _id, comment: reviewText }),
+          body: JSON.stringify({roomId: _id, comment: reviewText }),
         });
 
         if (!response.ok) {
@@ -38,7 +38,7 @@ const Review = () => {
   useEffect(() => {
     const fetchReviews = async () => {
       try {
-        const response = await fetch('http://localhost:4000/api/reviews/');
+        const response = await fetch(`http://localhost:4000/api/reviews/${_id}`);
         if (!response.ok) {
           throw new Error('Failed to fetch reviews');
         }
@@ -50,7 +50,7 @@ const Review = () => {
     };
 
     fetchReviews();
-  }, [reviews]);
+  }, [_id]);
 
 
   return (
@@ -75,7 +75,7 @@ const Review = () => {
             {reviews.length > 0 ? (
               reviews.map((review) => (
                 <li key={review._id}>
-                  <strong>{review._id}</strong>: {review.comment}
+                   {review.comment}
                 </li>
               ))
             ) : (
