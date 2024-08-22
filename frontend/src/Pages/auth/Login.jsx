@@ -13,12 +13,6 @@ const Login = () => {
     e.preventDefault();
     console.log(`Login with email: ${email}, role: ${role}`);
 
-    setNotification('You have successfully logged in!');
-
-    setTimeout(() => {
-      navigate('/');
-    }, 2000); 
-
     try {
       const response = await fetch('http://localhost:4000/api/users/login', {
         method: 'POST',
@@ -27,26 +21,32 @@ const Login = () => {
       });
 
       const data = await response.json();
-      if (data.role === 'admin') {
-        // Redirect to admin portal
-        window.location.href = 'http://localhost:3001';
-    } else {
-        // Redirect to frontend
-        navigate('/');
-    }
+
       if (response.ok) {
        
-        console.log('Login successful:', data);
-       
         localStorage.setItem('token', data.token);
-      
-      } else {
-        console.error(data.message);
+
+       
+        setNotification('You have successfully logged in!');
+
         
+        setTimeout(() => {
+          if (data.role === 'admin') {
+            window.location.href = 'http://localhost:3001'; 
+          } else {
+            navigate('/'); 
+          }
+        }, 2000);
+
+        console.log('Login successful:', data);
+      } else {
+       
+        setNotification(`Login failed: ${data.message}`);
+        console.error('Login error:', data.message);
       }
     } catch (error) {
       console.error('Error:', error);
-      
+      setNotification('An error occurred during login. Please try again.');
     }
   };
 
