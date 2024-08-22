@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import './ManageRooms.css'; // Import the CSS file
+import './ManageRooms.css'; 
 
 const ManageRooms = () => {
   const [rooms, setRooms] = useState([]);
   const [selectedRoom, setSelectedRoom] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
+  const [isAdding, setIsAdding] = useState(false);
   const [roomForm, setRoomForm] = useState({
     number: '',
     type: '',
@@ -14,7 +15,7 @@ const ManageRooms = () => {
     price: '',
     image: '',
     description: '',
-    status: ''
+    status: 'Available'
   });
   const [roomHistory, setRoomHistory] = useState([]);
 
@@ -35,6 +36,7 @@ const ManageRooms = () => {
     setSelectedRoom(room);
     setRoomForm(room);
     setIsEditing(true);
+    setIsAdding(false);
   };
 
   const handleDelete = async (roomId) => {
@@ -55,6 +57,7 @@ const ManageRooms = () => {
       }
       fetchRooms();
       setIsEditing(false);
+      setIsAdding(false);
       setRoomForm({
         number: '',
         type: '',
@@ -63,7 +66,7 @@ const ManageRooms = () => {
         price: '',
         image: '',
         description: '',
-        status: ''
+        status: 'Available'
       });
     } catch (error) {
       console.error('Error saving room:', error);
@@ -74,14 +77,49 @@ const ManageRooms = () => {
     try {
       const response = await axios.get(`/api/rooms/${roomId}/history`);
       setRoomHistory(response.data);
+      setSelectedRoom(rooms.find(room => room.id === roomId));
     } catch (error) {
       console.error('Error fetching room history:', error);
     }
   };
 
+  const handleAddNewRoom = () => {
+    setIsAdding(true);
+    setIsEditing(false);
+    setSelectedRoom(null);
+    setRoomForm({
+      number: '',
+      type: '',
+      servantName: '',
+      servantContact: '',
+      price: '',
+      image: '',
+      description: '',
+      status: 'Available'
+    });
+  };
+
+  const handleCloseForm = () => {
+    setIsEditing(false);
+    setIsAdding(false);
+    setRoomForm({
+      number: '',
+      type: '',
+      servantName: '',
+      servantContact: '',
+      price: '',
+      image: '',
+      description: '',
+      status: 'Available'
+    });
+  };
+
   return (
     <div className="container">
       <h1>Manage Rooms</h1>
+
+      <button className="add-new" onClick={handleAddNewRoom}>Add New Room</button>
+
       <table>
         <thead>
           <tr>
@@ -98,13 +136,13 @@ const ManageRooms = () => {
         </thead>
         <tbody>
           {rooms.map(room => (
-            <tr key={room.id} onClick={() => handleRoomClick(room.id)}>
-              <td>{room.number}</td>
+            <tr key={room.id}>
+              <td onClick={() => handleRoomClick(room.id)}>{room.number}</td>
               <td>{room.type}</td>
               <td>{room.servantName}</td>
               <td>{room.servantContact}</td>
               <td>{room.price}</td>
-              <td><img src={room.image} alt="Room" /></td>
+              <td><img src={room.image} alt="Room" className="room-image" /></td>
               <td>{room.description}</td>
               <td>{room.status}</td>
               <td>
@@ -116,8 +154,9 @@ const ManageRooms = () => {
         </tbody>
       </table>
 
-      {isEditing && (
-        <div>
+      {(isEditing || isAdding) && (
+        <div className="room-form">
+          <button className="close-button" onClick={handleCloseForm}>&times;</button>
           <h2>{selectedRoom ? 'Edit Room' : 'Add New Room'}</h2>
           <form onSubmit={e => { e.preventDefault(); handleSave(); }}>
             <input
@@ -125,51 +164,60 @@ const ManageRooms = () => {
               value={roomForm.number}
               onChange={e => setRoomForm({ ...roomForm, number: e.target.value })}
               placeholder="Room No"
+              required
             />
-            <input
-              type="text"
+            <select
               value={roomForm.type}
               onChange={e => setRoomForm({ ...roomForm, type: e.target.value })}
-              placeholder="Room Type"
-            />
+              required
+            >
+              <option value="Single">Single</option>
+              <option value="Double">Double</option>
+            </select>
             <input
               type="text"
               value={roomForm.servantName}
               onChange={e => setRoomForm({ ...roomForm, servantName: e.target.value })}
               placeholder="Servant Name"
+              required
             />
             <input
               type="text"
               value={roomForm.servantContact}
               onChange={e => setRoomForm({ ...roomForm, servantContact: e.target.value })}
               placeholder="Servant Contact"
+              required
             />
             <input
               type="number"
               value={roomForm.price}
               onChange={e => setRoomForm({ ...roomForm, price: e.target.value })}
               placeholder="Price/Per Day"
+              required
             />
             <input
               type="text"
               value={roomForm.image}
               onChange={e => setRoomForm({ ...roomForm, image: e.target.value })}
               placeholder="Image URL"
+              required
             />
             <textarea
               value={roomForm.description}
               onChange={e => setRoomForm({ ...roomForm, description: e.target.value })}
               placeholder="Description"
+              required
             />
             <select
               value={roomForm.status}
               onChange={e => setRoomForm({ ...roomForm, status: e.target.value })}
+              required
             >
               <option value="Available">Available</option>
               <option value="Occupied">Occupied</option>
               <option value="Maintenance">Maintenance</option>
             </select>
-            <button type="submit">Save</button>
+            <button className="save-button" type="submit">Save</button>
           </form>
         </div>
       )}
