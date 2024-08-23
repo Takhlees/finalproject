@@ -5,7 +5,7 @@ const SearchItem = ({ hotel }) => {
   const navigate = useNavigate();
   
   const handleDetailsClick = () => {
-    navigate(`/hotels/${hotel._id}`); // Navigate to the hotel details page with hotel ID
+    navigate(`/hotels/${hotel._id}`); 
   };
 
   return (

@@ -103,9 +103,6 @@ const Hotel = () => {
               </div>
               <button className="addReview" onClick={handleAddReview}>Add a Review</button>
             </div>
-            <div className="hotelDetailsPrice">
-              <button onClick={handleBooking}>Reserve or Book Now!</button>
-            </div>
           </div>
         </div>
         <MailList />
