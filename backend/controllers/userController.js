@@ -12,25 +12,6 @@ exports.getAllUsers = async (req, res) => {
   }
 };
 
-exports.getCurrentUser = async (req, res) => {
-  try {
-    // Get user ID from the request object, set by the fetchUser middleware
-    const userId = req.user._id;
-
-    // Find the user by ID and exclude the password field
-    const user = await User.findById(userId).select('-password');
-
-    if (!user) {
-      return res.status(404).json({ message: 'User not found' });
-    }
-
-    // Return user data
-    res.json(user);
-  } catch (error) {
-    console.error('Error fetching user data:', error);
-    res.status(500).json({ message: error.message });
-  }
-};
 
 exports.registerUser = async (req, res) => {
   const { userId, email, password, role } = req.body;

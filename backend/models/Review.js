@@ -4,7 +4,7 @@ const { Schema } = mongoose;
 const reviewSchema = new Schema({
   roomId: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Booking',
+    ref: 'Room',
    required:true
   },
  

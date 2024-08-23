@@ -46,7 +46,7 @@ const Hotel = () => {
   };
 
   const handleBooking = () => {
-    navigate('/booking'); 
+    navigate(`/booking/${id}`); 
   };
 
   const handleAddReview = () => {

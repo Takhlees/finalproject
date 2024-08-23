@@ -2,9 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Booking.css';
 import Cookies from 'js-cookie';
+import { useParams } from "react-router-dom";
 
 const Booking = () => {
+  const { roomId } = useParams(); 
   const [formData, setFormData] = useState({
+    roomId: roomId,
     userId: '',
     name: '',
     email: '',
@@ -24,7 +27,7 @@ const Booking = () => {
   useEffect(() => {
     const userId = Cookies.get('userID');
     console.log(userId)
-      fetch(`http://localhost:4000/api/users/currentuser`, {
+      fetch(`http://localhost:4000/api/users/${userId}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -37,15 +40,16 @@ const Booking = () => {
             console.log(formData)
             setFormData(prevData => ({
               ...prevData,
+             roomId:roomId,
               userId: userId,
-              name: data.name || '',
-              email: data.email || '',
-              contact: data.contact || '',
+             
+            
+              
             }));
           }
         })
     
-  }, []);
+  });
 
   const handleChange = (e) => {
     const { name, value } = e.target;

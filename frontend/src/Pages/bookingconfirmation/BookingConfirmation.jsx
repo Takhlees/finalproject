@@ -30,6 +30,7 @@ const BookingConfirmation = () => {
           <p><strong>Payment Status:</strong> {bookingDetails.paymentStatus}</p>
           <p><strong>Amount Paid:</strong> ${bookingDetails.amount}</p>
           {bookingDetails.userId && <p><strong>User ID:</strong> {bookingDetails.userId}</p>}
+          {bookingDetails.roomId && <p><strong>Room ID:</strong> {bookingDetails.roomId}</p>}
         </div>
         <div className="confirmationActions">
           <button onClick={handlePrint}>Print Confirmation</button>
