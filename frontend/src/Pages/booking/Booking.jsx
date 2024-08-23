@@ -15,37 +15,56 @@ const Booking = () => {
     departureTime: '',
     children: 0,
     adults: 1,
-    amount: '', 
+    amount: '', // This will now be populated with the "price" from the database
   });
 
   const navigate = useNavigate();
 
-
   useEffect(() => {
     const userId = Cookies.get('userID');
-    console.log(userId)
-      fetch(`http://localhost:4000/api/users/currentuser`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${Cookies.get('token')}`,
-        },
+    fetch(`http://localhost:4000/api/users/currentuser`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${Cookies.get('token')}`,
+      },
+    })
+      .then(response => response.json())
+      .then(data => {
+        setFormData(prevData => ({
+          ...prevData,
+          userId: userId,
+          name: data.name || '',
+          email: data.email || '',
+          contact: data.contact || '',
+        }));
       })
-        .then(response => response.json())
-        .then(data => {
-          if (formData ) {
-            console.log(formData)
-            setFormData(prevData => ({
-              ...prevData,
-              userId: userId,
-              name: data.name || '',
-              email: data.email || '',
-              contact: data.contact || '',
-            }));
-          }
-        })
-    
+      .catch(error => {
+        console.error("Failed to fetch user details:", error);
+      });
   }, []);
+
+  useEffect(() => {
+    const fetchPrice = async () => {
+      try {
+        const response = await fetch('http://localhost:4000/api/bookings/price', {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${Cookies.get('token')}`,
+          },
+        });
+        const data = await response.json();
+        setFormData(prevData => ({
+          ...prevData,
+          amount: data.price, // Set the price from the backend as the amount
+        }));
+      } catch (error) {
+        console.error('Failed to fetch the price:', error);
+      }
+    };
+    fetchPrice();
+  }, []); // This runs once when the component mounts
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -55,14 +74,14 @@ const Booking = () => {
     });
   };
 
-  const handleSubmit = async(e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     
     try {
       const response = await fetch('http://localhost:4000/api/bookings/add', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData)
+        body: JSON.stringify(formData),
       });
       const data = await response.json();
       if (response.ok) {
@@ -75,7 +94,6 @@ const Booking = () => {
     } catch (error) {
       console.error('Error:', error);
     }
-    
   };
 
   return (
@@ -167,15 +185,7 @@ const Booking = () => {
             </div>
           </div>
           <div className="amountContainer">
-            <label>Amount to Pay (in $)</label>
-            <input
-              type="number"
-              name="amount"
-              placeholder="Enter amount"
-              value={formData.amount}
-              onChange={handleChange}
-              required
-            />
+            <h3>Amount to Pay: ${formData.amount}</h3> {/* Display amount as text */}
           </div>
           <button type="submit">Proceed to Payment</button>
         </form>

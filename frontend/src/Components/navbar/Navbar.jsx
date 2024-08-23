@@ -6,7 +6,7 @@ import './Navbar.css';
 const Navbar = () => {
   const navigate = useNavigate();
 
-  // Function to check if the token cookie exists
+ 
   const isLoggedIn = document.cookie.includes('token=');
 
   const handleLogout = () => {

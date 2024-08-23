@@ -8,7 +8,6 @@ import {
   faCircleArrowLeft,
   faCircleArrowRight,
   faCircleXmark,
-  faLocationDot,
 } from "@fortawesome/free-solid-svg-icons";
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
@@ -17,7 +16,7 @@ const Hotel = () => {
   const [slideNumber, setSlideNumber] = useState(0);
   const [open, setOpen] = useState(false);
   const [hotel, setHotel] = useState(null);
-  const { id } = useParams(); 
+  const { id } = useParams();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -25,7 +24,7 @@ const Hotel = () => {
       try {
         const response = await fetch(`http://localhost:4000/api/rooms/${id}`);
         const data = await response.json();
-        
+
         setHotel(data);
       } catch (error) {
         console.error("Failed to fetch hotel details:", error);
@@ -46,14 +45,14 @@ const Hotel = () => {
   };
 
   const handleBooking = () => {
-    navigate('/booking'); 
+    navigate('/booking');
   };
 
   const handleAddReview = () => {
-    navigate(`/hotel/${id}/review`); 
+    navigate(`/hotel/${id}/review`);
   };
 
-  if (!hotel) return <div>Loading...</div>; 
+  if (!hotel) return <div>Loading...</div>;
 
   return (
     <div>
@@ -83,28 +82,21 @@ const Hotel = () => {
           </div>
         )}
         <div className="hotelWrapper">
-          <button className="bookNow" onClick={handleBooking}>Reserve or Book Now!</button>
-          <h1 className="hotelTitle">{hotel.number}</h1>
-          <div className="hotelAddress">
-            <FontAwesomeIcon icon={faLocationDot} />
-            <span>{hotel.address}</span>
-          </div>
-          <span className="hotelDistance">{hotel.description}</span>
-          <span className="hotelPriceHighlight">{hotel.price}</span>
-         
+          <button className="bookNow" onClick={handleBooking}>Book Now!</button>
           <div className="hotelDetails">
             <div className="hotelDetailsTexts">
-              <p className="hotelDesc">{hotel.description}</p>
               <div className="hotelRoomDetails">
-                <p>Room Number: {hotel.number}</p>
-                <p>Room Type: {hotel.type}</p>
-                <p>Status: {hotel.status}</p>
-                <p>Price per Day: ${hotel.price}</p>
+                <p>Room Number: <span>{hotel.number}</span></p>
+                <p>Room Type: <span>{hotel.type}</span></p>
+                <p>Room Description: <span>{hotel.description}</span></p>
+                <p>Status: <span>{hotel.status}</span></p>
+                <p>Price per Day: <span>${hotel.price}</span></p>
               </div>
               <button className="addReview" onClick={handleAddReview}>Add a Review</button>
             </div>
           </div>
         </div>
+
         <MailList />
         <Footer />
       </div>
