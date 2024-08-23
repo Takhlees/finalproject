@@ -1,12 +1,12 @@
-const Room = require('../models/Room');
-const Booking = require('../models/Booking');
+const Room = require("../models/Room");
+const Booking = require("../models/Booking");
 
 const getTotalRooms = async () => {
   return await Room.countDocuments();
 };
 
 const getOccupiedRooms = async () => {
-  return await Room.countDocuments({ 'history.0': { $exists: true } });
+  return await Room.countDocuments({ status: "Occupied" });
 };
 
 const getFreeRooms = async () => {
@@ -20,54 +20,54 @@ const getTotalBookings = async () => {
 };
 
 const getApprovedBookings = async () => {
-  return await Booking.countDocuments({ status: 'Approved' });
+  return await Booking.countDocuments({ status: "Approved" });
 };
 
 const getPendingBookings = async () => {
-  return await Booking.countDocuments({ status: 'Pending' });
+  return await Booking.countDocuments({ status: "Pending" });
 };
 
 const getGeneratedRevenue = async () => {
   const bookings = await Booking.aggregate([
     {
       $lookup: {
-        from: 'rooms',
-        localField: 'roomId',
-        foreignField: '_id',
-        as: 'roomDetails'
-      }
+        from: "rooms",
+        localField: "roomId",
+        foreignField: "_id",
+        as: "roomDetails",
+      },
     },
     {
-      $unwind: '$roomDetails'
+      $unwind: "$roomDetails",
     },
     {
       $project: {
-        roomPrice: '$roomDetails.pricePerDay',
+        roomPrice: "$roomDetails.price",
         stayDuration: {
-          $subtract: ['$departureDateTime', '$arrivalDateTime']
-        }
-      }
+          $subtract: ["$departureDate", "$arrivalDate"],
+        },
+      },
     },
     {
       $project: {
-        stayDuration: { $divide: ['$stayDuration', 1000 * 60 * 60 * 24] }, // Convert duration from milliseconds to days
-        roomPrice: 1
-      }
+        stayDuration: { $divide: ["$stayDuration", 1000 * 60 * 60 * 24] }, // Convert duration from milliseconds to days
+        roomPrice: 1,
+      },
     },
     {
       $project: {
-        totalCost: { $multiply: ['$stayDuration', '$roomPrice'] }
-      }
+        totalCost: { $multiply: ["$stayDuration", "$roomPrice"] },
+      },
     },
     {
       $group: {
         _id: null,
-        GeneratedRevenue: { $sum: '$totalCost' }
-      }
-    }
+        GeneratedRevenue: { $sum: "$totalCost" },
+      },
+    },
   ]);
 
-  return bookings.length > 0 ? bookings[0].GeneratedRevenue: 0;
+  return bookings.length > 0 ? bookings[0].GeneratedRevenue : 0;
 };
 
 module.exports = {
@@ -77,5 +77,5 @@ module.exports = {
   getTotalBookings,
   getApprovedBookings,
   getPendingBookings,
-  getGeneratedRevenue
+  getGeneratedRevenue,
 };

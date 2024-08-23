@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import './Dashboard.css'; // Add custom CSS file for specific styles
-import Cookies from 'js-cookie';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import "./Dashboard.css"; // Add custom CSS file for specific styles
+import Cookies from "js-cookie";
 
 const Dashboard = () => {
   const [stats, setStats] = useState({
@@ -15,21 +15,23 @@ const Dashboard = () => {
   });
 
   useEffect(() => {
-    
-const token = Cookies.get('token');
-    console.log('Token retrieved in Admin Portal:', Cookies.get('token'));
+    const token = Cookies.get("token");
+    console.log("Token retrieved in Admin Portal:", Cookies.get("token"));
 
-    axios.get('http://localhost:4000/api/admin/dashboard', {
-      headers: {
-        'Authorization': `Bearer ${token}` // Send token as Bearer token
-      }
-    })
-      .then(response => {
-        setStats(response.data);
-        
-    console.log(response.data);
+    axios
+      .get("http://localhost:4000/api/admin/dashboard", {
+        headers: {
+          Authorization: `Bearer ${token}`, // Send token as Bearer token
+        },
       })
-      .catch(error => console.error('Error fetching dashboard stats:', error));
+      .then((response) => {
+        setStats(response.data);
+
+        console.log(response.data);
+      })
+      .catch((error) =>
+        console.error("Error fetching dashboard stats:", error)
+      );
   }, []);
 
   return (
@@ -45,7 +47,7 @@ const token = Cookies.get('token');
           <p>{stats.occupiedRooms}</p>
         </div>
         <div className="card">
-          <h2>Free Rooms</h2>
+          <h2>Available Rooms</h2>
           <p>{stats.freeRooms}</p>
         </div>
         <div className="card">

@@ -1,12 +1,12 @@
-const stripe = require('../services/stripe');
+const stripe = require("../services/stripe");
 
 exports.createPaymentIntent = async (req, res) => {
-  const { amount } = req.body; 
+  const { amount } = req.body;
   try {
     const paymentIntent = await stripe.paymentIntents.create({
       amount: amount,
-      currency: 'pkr', // Change to your desired currency
-      payment_method_types: ['card'],
+      currency: "pkr", // Change to your desired currency
+      payment_method_types: ["card"],
     });
 
     // Send the client secret to the client

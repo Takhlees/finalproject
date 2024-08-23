@@ -1,7 +1,10 @@
-import React from 'react';
-import './Contact.css';
+import React from "react";
+import "./Contact.css";
 
 const Contact = () => {
+  const handleClick = () => {
+    alert("Your response has been recorded");
+  };
   return (
     <div className="contactPage">
       <h1 className="contactTitle">Contact Us</h1>
@@ -18,7 +21,9 @@ const Contact = () => {
           Message:
           <textarea name="message"></textarea>
         </label>
-        <button type="submit">Submit</button>
+        <button type="submit" onClick={handleClick}>
+          Submit
+        </button>
       </form>
     </div>
   );

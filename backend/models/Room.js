@@ -25,7 +25,7 @@ const roomSchema = new Schema({
   },
   history: [{
     bookingId: {
-      type: Schema.Types.ObjectId,
+      type: mongoose.Schema.Types.ObjectId,
       ref: 'Booking'
     },
     arrivalDate: Date,

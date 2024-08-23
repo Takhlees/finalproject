@@ -1,27 +1,28 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import './ManageEmployees.css';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import "./ManageEmployees.css";
 
 const ManageEmployees = () => {
   const [employees, setEmployees] = useState([]);
   const [selectedEmployee, setSelectedEmployee] = useState(null);
   const [formData, setFormData] = useState({
-    name: '',
-    image: '',
-    cnic: '',
-    contact: '',
-    email: '',
-    salary: ''
+    name: "",
+    image: "",
+    cnic: "",
+    contact: "",
+    email: "",
+    salary: "",
   });
   const [formVisible, setFormVisible] = useState(false); // State to control form visibility
 
   // Fetch employees from API
   useEffect(() => {
-    axios.get('http://localhost:4000/api/employees/')
-      .then(response => {
+    axios
+      .get("http://localhost:4000/api/employees/")
+      .then((response) => {
         setEmployees(response.data);
       })
-      .catch(error => console.error('Error fetching employees:', error));
+      .catch((error) => console.error("Error fetching employees:", error));
   }, []);
 
   // Handle form input changes
@@ -29,7 +30,7 @@ const ManageEmployees = () => {
     const { name, value } = e.target;
     setFormData({
       ...formData,
-      [name]: value
+      [name]: value,
     });
   };
 
@@ -43,71 +44,81 @@ const ManageEmployees = () => {
   // Handle employee update
   const handleUpdateEmployee = (e) => {
     e.preventDefault();
-    axios.put(`http://localhost:4000/api/employees/${selectedEmployee._id}`, formData)
-      .then(response => {
-        setEmployees(employees.map(emp => emp._id === selectedEmployee._id ? response.data : emp));
+    axios
+      .put(
+        `http://localhost:4000/api/employees/${selectedEmployee._id}`,
+        formData
+      )
+      .then((response) => {
+        setEmployees(
+          employees.map((emp) =>
+            emp._id === selectedEmployee._id ? response.data : emp
+          )
+        );
         setSelectedEmployee(null); // Clear selection after update
         setFormVisible(false); // Hide the form after updating
         setFormData({
-          name: '',
-          image: '',
-          cnic: '',
-          contact: '',
-          email: '',
-          salary: ''
+          name: "",
+          image: "",
+          cnic: "",
+          contact: "",
+          email: "",
+          salary: "",
         }); // Reset form data
       })
-      .catch(error => console.error('Error updating employee:', error));
+      .catch((error) => console.error("Error updating employee:", error));
   };
 
   // Handle employee deletion
   const handleDeleteEmployee = (id) => {
-    axios.delete(`http://localhost:4000/api/employees/${id}`)
+    axios
+      .delete(`http://localhost:4000/api/employees/${id}`)
       .then(() => {
-        setEmployees(employees.filter(emp => emp._id !== id));
+        setEmployees(employees.filter((emp) => emp._id !== id));
         setSelectedEmployee(null); // Clear selection after deletion
         setFormVisible(false); // Hide the form after deletion
         setFormData({
-          name: '',
-          image: '',
-          cnic: '',
-          contact: '',
-          email: '',
-          salary: ''
+          name: "",
+          image: "",
+          cnic: "",
+          contact: "",
+          email: "",
+          salary: "",
         }); // Reset form data
       })
-      .catch(error => console.error('Error deleting employee:', error));
+      .catch((error) => console.error("Error deleting employee:", error));
   };
 
   // Handle adding a new employee
   const handleAddEmployee = (e) => {
     e.preventDefault();
-    axios.post('http://localhost:4000/api/employees/', formData)
-      .then(response => {
+    axios
+      .post("http://localhost:4000/api/employees/", formData)
+      .then((response) => {
         setEmployees([...employees, response.data]);
         setFormVisible(false); // Hide the form after adding a new employee
         setFormData({
-          name: '',
-          image: '',
-          cnic: '',
-          contact: '',
-          email: '',
-          salary: ''
+          name: "",
+          image: "",
+          cnic: "",
+          contact: "",
+          email: "",
+          salary: "",
         }); // Reset form data
       })
-      .catch(error => console.error('Error adding employee:', error));
+      .catch((error) => console.error("Error adding employee:", error));
   };
 
   // Prepare the form for adding a new employee
   const handleNewEmployee = () => {
     setSelectedEmployee(null);
     setFormData({
-      name: '',
-      image: '',
-      cnic: '',
-      contact: '',
-      email: '',
-      salary: ''
+      name: "",
+      image: "",
+      cnic: "",
+      contact: "",
+      email: "",
+      salary: "",
     }); // Reset form data for new employee
     setFormVisible(true); // Show the form when "Add New Employee" is clicked
   };
@@ -117,12 +128,12 @@ const ManageEmployees = () => {
     setFormVisible(false); // Hide the form
     setSelectedEmployee(null); // Clear selected employee
     setFormData({
-      name: '',
-      image: '',
-      cnic: '',
-      contact: '',
-      email: '',
-      salary: ''
+      name: "",
+      image: "",
+      cnic: "",
+      contact: "",
+      email: "",
+      salary: "",
     }); // Reset form data
   };
 
@@ -130,7 +141,9 @@ const ManageEmployees = () => {
     <div className="manage-employees">
       <h1>Manage Employees</h1>
 
-      <button className="add-new" onClick={handleNewEmployee}>Add New Employee</button>
+      <button className="add-new" onClick={handleNewEmployee}>
+        Add New Employee
+      </button>
 
       <div className="table-responsive">
         <table>
@@ -146,17 +159,29 @@ const ManageEmployees = () => {
             </tr>
           </thead>
           <tbody>
-            {employees.map(employee => (
+            {employees.map((employee) => (
               <tr key={employee._id}>
                 <td>{employee.name}</td>
-                <td><img src={employee.image} alt={employee.name} className="employee-image" /></td>
+                <td>
+                  <img
+                    src={employee.image}
+                    alt={employee.name}
+                    className="employee-image"
+                  />
+                </td>
                 <td>{employee.cnic}</td>
                 <td>{employee.contact}</td>
                 <td>{employee.email}</td>
                 <td>{employee.salary}</td>
                 <td>
-                  <button onClick={() => handleSelectEmployee(employee)}>Edit</button>
-                  <button className="delete" onClick={() => handleDeleteEmployee(employee._id)}>Delete</button>
+                  <button onClick={() => handleSelectEmployee(employee)}>
+                    Edit
+                  </button>
+                  <button
+                    className="delete"
+                    onClick={() => handleDeleteEmployee(employee._id)}>
+                    Delete
+                  </button>
                 </td>
               </tr>
             ))}
@@ -166,9 +191,16 @@ const ManageEmployees = () => {
 
       {formVisible && (
         <div className="employee-form">
-          <button className="close-button" onClick={handleCloseForm}>&times;</button>
-          <h2>{selectedEmployee ? "Edit Employee Details" : "Add New Employee"}</h2>
-          <form onSubmit={selectedEmployee ? handleUpdateEmployee : handleAddEmployee}>
+          <button className="close-button" onClick={handleCloseForm}>
+            &times;
+          </button>
+          <h2>
+            {selectedEmployee ? "Edit Employee Details" : "Add New Employee"}
+          </h2>
+          <form
+            onSubmit={
+              selectedEmployee ? handleUpdateEmployee : handleAddEmployee
+            }>
             <label>
               Name:
               <input
@@ -229,7 +261,9 @@ const ManageEmployees = () => {
                 required
               />
             </label>
-            <button type="submit">{selectedEmployee ? "Update Employee" : "Add Employee"}</button>
+            <button type="submit">
+              {selectedEmployee ? "Update Employee" : "Add Employee"}
+            </button>
           </form>
         </div>
       )}

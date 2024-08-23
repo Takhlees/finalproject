@@ -1,35 +1,42 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 
 const ManageBookings = () => {
   const [bookings, setBookings] = useState([]);
 
   useEffect(() => {
-    axios.get('http://localhost:4000/api/bookings/')
-      .then(response => {
+    axios
+      .get("http://localhost:4000/api/bookings/")
+      .then((response) => {
         setBookings(response.data);
       })
-      .catch(error => console.error('Error fetching bookings:', error));
+      .catch((error) => console.error("Error fetching bookings:", error));
   }, []);
 
   const handleApprove = (_id) => {
-    axios.post(`http://localhost:4000/api/bookings/approve/${_id}`)
+    axios
+      .post(`http://localhost:4000/api/bookings/approve/${_id}`)
       .then(() => {
-        setBookings(bookings.map(booking =>
-          booking._id === _id ? { ...booking, status: 'Approved' } : booking
-        ));
+        setBookings(
+          bookings.map((booking) =>
+            booking._id === _id ? { ...booking, status: "Approved" } : booking
+          )
+        );
       })
-      .catch(error => console.error('Error approving booking:', error));
+      .catch((error) => console.error("Error approving booking:", error));
   };
 
   const handleReject = (_id) => {
-    axios.post(`http://localhost:4000/api/bookings/reject/${_id}`)
+    axios
+      .post(`http://localhost:4000/api/bookings/reject/${_id}`)
       .then(() => {
-        setBookings(bookings.map(booking =>
-          booking._id === _id ? { ...booking, status: 'Rejected' } : booking
-        ));
+        setBookings(
+          bookings.map((booking) =>
+            booking._id === _id ? { ...booking, status: "Rejected" } : booking
+          )
+        );
       })
-      .catch(error => console.error('Error rejecting booking:', error));
+      .catch((error) => console.error("Error rejecting booking:", error));
   };
 
   return (
@@ -39,20 +46,23 @@ const ManageBookings = () => {
         <thead>
           <tr>
             <th>Booking _id</th>
-            <th>Room No</th>
             <th>Status</th>
             <th>Actions</th>
           </tr>
         </thead>
         <tbody>
-          {bookings.map(booking => (
+          {bookings.map((booking) => (
             <tr key={booking._id}>
               <td>{booking._id}</td>
-              <td>{booking.roomNo}</td>
+
               <td>{booking.status}</td>
               <td>
-                <button onClick={() => handleApprove(booking._id)}>Approve</button>
-                <button onClick={() => handleReject(booking._id)}>Reject</button>
+                <button onClick={() => handleApprove(booking._id)}>
+                  Approve
+                </button>
+                <button onClick={() => handleReject(booking._id)}>
+                  Reject
+                </button>
               </td>
             </tr>
           ))}

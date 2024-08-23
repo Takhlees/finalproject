@@ -8,7 +8,8 @@ const Review = () => {
   const [reviewText, setReviewText] = useState("");
 
   // Fetch existing reviews when component loads
-  
+ 
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (reviewText.trim()) {
@@ -30,10 +31,12 @@ const Review = () => {
         setReviews(prevReviews => [...prevReviews, newReview]);
 // Add new review to the existing list
         setReviewText(""); // Clear the text area
+       
       } catch (error) {
         console.error('Error submitting review:', error);
       }
     }
+  
   };
   useEffect(() => {
     const fetchReviews = async () => {
@@ -44,15 +47,15 @@ const Review = () => {
         }
         const data = await response.json();
         setReviews(data);
+        console.log(data)
       } catch (error) {
         console.error('Error fetching reviews:', error);
       }
     };
 
     fetchReviews();
-  }, [_id]);
-
-
+  });
+ 
   return (
     <div className="reviewPage">
       <div className="reviewContainer">

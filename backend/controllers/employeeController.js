@@ -1,4 +1,4 @@
-const Employee = require('../models/Employee');
+const Employee = require("../models/Employee");
 
 exports.getAllEmployees = async (req, res) => {
   try {
@@ -25,7 +25,7 @@ exports.getEmployeeById = async (req, res) => {
     if (employee) {
       res.json(employee);
     } else {
-      res.status(404).json({ message: 'Employee not found' });
+      res.status(404).json({ message: "Employee not found" });
     }
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -34,11 +34,15 @@ exports.getEmployeeById = async (req, res) => {
 
 exports.updateEmployee = async (req, res) => {
   try {
-    const updatedEmployee = await Employee.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    const updatedEmployee = await Employee.findByIdAndUpdate(
+      req.params.id,
+      req.body,
+      { new: true }
+    );
     if (updatedEmployee) {
       res.json(updatedEmployee);
     } else {
-      res.status(404).json({ message: 'Employee not found' });
+      res.status(404).json({ message: "Employee not found" });
     }
   } catch (error) {
     res.status(400).json({ message: error.message });
@@ -49,9 +53,9 @@ exports.deleteEmployee = async (req, res) => {
   try {
     const deletedEmployee = await Employee.findByIdAndDelete(req.params.id);
     if (deletedEmployee) {
-      res.json({ message: 'Employee deleted' });
+      res.json({ message: "Employee deleted" });
     } else {
-      res.status(404).json({ message: 'Employee not found' });
+      res.status(404).json({ message: "Employee not found" });
     }
   } catch (error) {
     res.status(500).json({ message: error.message });

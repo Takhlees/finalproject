@@ -29,7 +29,7 @@
 .bookNow {
   position: absolute;
   top: 10px;
-  right: 0;
+  right: 20px;
   z-index: 10; /* Ensure it stays on top of content */
 }
 
@@ -41,29 +41,19 @@
   background-color: #0668ad;
 }
 
-.slider {
-  position: sticky;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, 0.613);
-  z-index: 999;
-  display: flex;
-  align-items: center;
-}
 
 .sliderWrapper {
   width: 100%;
   height: 100%;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  justify-content: left;
+  align-items: left;
 }
 
 .sliderImg {
-  width: 80%;
-  height: 80vh;
+    width: 100%;
+    height: 500px;
+   margin: 10px;
 }
 
 .close {
@@ -164,11 +154,11 @@
   }
 
   .bookNow {
-    position: static; /* Remove absolute positioning */
+    
     display: block;
     margin: 20px auto 0; /* Center the button */
     width: fit-content;
-    margin-right: 25px;
+   right: 30px;
   }
 }
 

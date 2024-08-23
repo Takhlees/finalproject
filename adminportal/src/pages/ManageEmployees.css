@@ -37,7 +37,8 @@ table {
   border-radius: 8px;
 }
 
-table th, table td {
+table th,
+table td {
   padding: 12px 15px;
   border-bottom: 1px solid #ddd;
   text-align: left;

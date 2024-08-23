@@ -1,4 +1,5 @@
-const Room = require('../models/Room');
+const Room = require("../models/Room");
+const Booking = require("../models/Booking");
 
 exports.getAllRooms = async (req, res) => {
   try {
@@ -27,8 +28,22 @@ exports.getRoomById = async (req, res) => {
     if (room) {
       res.json(room);
     } else {
-      res.status(404).json({ message: 'Room not found' });
+      res.status(404).json({ message: "Room not found" });
     }
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+exports.getRoomHistory = async (req, res) => {
+  try {
+    const roomId = req.params.roomId;
+
+    const bookings = await Booking.find({ roomId: roomId }).select(
+      "arrivalDate departureDate userId email"
+    );
+
+    res.json(bookings);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -36,11 +51,13 @@ exports.getRoomById = async (req, res) => {
 
 exports.updateRoom = async (req, res) => {
   try {
-    const updatedRoom = await Room.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    const updatedRoom = await Room.findByIdAndUpdate(req.params.id, req.body, {
+      new: true,
+    });
     if (updatedRoom) {
       res.json(updatedRoom);
     } else {
-      res.status(404).json({ message: 'Room not found' });
+      res.status(404).json({ message: "Room not found" });
     }
   } catch (error) {
     res.status(400).json({ message: error.message });
@@ -51,9 +68,9 @@ exports.deleteRoom = async (req, res) => {
   try {
     const deletedRoom = await Room.findByIdAndDelete(req.params.id);
     if (deletedRoom) {
-      res.json({ message: 'Room deleted' });
+      res.json({ message: "Room deleted" });
     } else {
-      res.status(404).json({ message: 'Room not found' });
+      res.status(404).json({ message: "Room not found" });
     }
   } catch (error) {
     res.status(500).json({ message: error.message });
