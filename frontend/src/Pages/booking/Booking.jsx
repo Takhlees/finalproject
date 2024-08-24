@@ -1,62 +1,65 @@
-import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import "./Booking.css";
-import Cookies from "js-cookie";
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import './Booking.css';
+import Cookies from 'js-cookie';
 import { useParams } from "react-router-dom";
 
 const Booking = () => {
-  const { roomId } = useParams();
+  const { roomId } = useParams(); 
   const [formData, setFormData] = useState({
     roomId: roomId,
-    userId: "",
-    name: "",
-    email: "",
-    contact: "",
-    arrivalDate: "",
-    arrivalTime: "",
-    departureDate: "",
-    departureTime: "",
+    userId: '',
+    name: '',
+    email: '',
+    contact: '',
+    arrivalDate: '',
+    arrivalTime: '',
+    departureDate: '',
+    departureTime: '',
     children: 0,
     adults: 1,
-    amount: "",
+    amount: '',
   });
 
   const navigate = useNavigate();
 
   useEffect(() => {
-    const userId = Cookies.get("userID");
-
-    fetch(`http://localhost:4000/api/users/${userId}`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${Cookies.get("token")}`,
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        if (formData) {
-          setFormData((prevData) => ({
-            ...prevData,
-            roomId: roomId,
-            userId: userId,
-          }));
-        }
-      });
-    fetch(`http://localhost:4000/api/rooms/${roomId}`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((response) => response.json())
-      .then((roomData) => {
-        setFormData((prevData) => ({
-          ...prevData,
-          amount: roomData.price || "", // Assuming the price field in your room data is 'price'
-        }));
-      });
-  });
+    const userId = Cookies.get('userID');
+    
+      fetch(`http://localhost:4000/api/users/${userId}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${Cookies.get('token')}`,
+        },
+      })
+        .then(response => response.json())
+        .then(data => {
+          if (formData ) {
+           
+            setFormData(prevData => ({
+              ...prevData,
+             roomId:roomId,
+              userId: userId,
+            }));
+          }
+        })
+        fetch(`http://localhost:4000/api/rooms/${roomId}`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        })
+          .then(response => response.json())
+          .then(roomData => {
+            setFormData(prevData => ({
+              ...prevData,
+              amount: roomData.price || '', // Assuming the price field in your room data is 'price'
+            }));
+          })
+         
+  } );
+  
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -68,23 +71,22 @@ const Booking = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    
     try {
-      const response = await fetch("http://localhost:4000/api/bookings/add", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
+      const response = await fetch('http://localhost:4000/api/bookings/add', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
       });
       const data = await response.json();
       if (response.ok) {
-        console.log("Booking successful:", data);
-        Cookies.set("token", data.token, { path: "/", domain: "localhost" });
-        navigate("/payment", { state: { ...formData } });
+        console.log('Booking successful:', data);
+        navigate('/payment', { state: { ...formData } });
       } else {
         console.error(data.message);
       }
     } catch (error) {
-      console.error("Error:", error);
+      console.error('Error:', error);
     }
   };
 
@@ -177,7 +179,7 @@ const Booking = () => {
             </div>
           </div>
           <div className="amountContainer">
-            <h3>Amount to Pay: ${formData.amount}</h3>
+            <h3>Amount to Pay: ${formData.amount}</h3> 
           </div>
           <button type="submit">Proceed to Payment</button>
         </form>

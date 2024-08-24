@@ -47,7 +47,7 @@ const Review = () => {
         }
         const data = await response.json();
         setReviews(data);
-        console.log(data)
+       
       } catch (error) {
         console.error('Error fetching reviews:', error);
       }

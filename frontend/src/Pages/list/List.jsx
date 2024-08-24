@@ -13,7 +13,7 @@ const List = () => {
 
   useEffect(() => {
     // Fetch data from API
-    fetch('http://localhost:4000/api/rooms/') // Replace with your API endpoint
+    fetch('http://localhost:4000/api/rooms/') 
       .then(response => response.json())
       .then(data => {
         
